@@ -1,32 +1,71 @@
 import React, { useEffect, useState } from 'react';
 import Button from '../common/Button';
 
+// Replace these imports with your own images for the three circles
+// You can use your own assets or keep the Unsplash fallbacks
+import workImageOne from '../../assets/images/work-one.jpg';
+import workImageTwo from '../../assets/images/work-two.jpg';
+import workImageThree from '../../assets/images/work-three.jpg';
+
+// Fallback images (high-quality Unsplash - abstract creative works)
+const fallbackImages = {
+  work1: 'https://images.unsplash.com/photo-1542744094-24638eff58bb?w=400&h=400&fit=crop',
+  work2: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&h=400&fit=crop',
+  work3: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=400&fit=crop'
+};
+
 const About = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [hoveredCard, setHoveredCard] = useState(null);
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setMousePosition({ x, y });
+  const navigateTo = (section) => {
+    const element = document.getElementById(section.toLowerCase());
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
-  const specializations = [
-    "Full Stack Development",
-    "React.js / .NET Expert",
-    "Mobile App Development"
+  // Data for the three left-side circular images - NO NAMES, just work representation
+  const leftCircles = [
+    {
+      id: 1,
+      title: 'Creative Direction',
+      subtitle: 'Visual Identity',
+      image: workImageOne,
+      fallback: fallbackImages.work1,
+      section: 'skills'
+    },
+    {
+      id: 2,
+      title: 'Digital Design',
+      subtitle: 'User Experience',
+      image: workImageTwo,
+      fallback: fallbackImages.work2,
+      section: 'certification'
+    },
+    {
+      id: 3,
+      title: 'Artistic Vision',
+      subtitle: 'Concept Development',
+      image: workImageThree,
+      fallback: fallbackImages.work3,
+      section: 'projects'
+    }
   ];
-  
+
+  const handleImageError = (e, fallbackSrc) => {
+    e.target.src = fallbackSrc;
+  };
+
   return (
     <section 
       id="about" 
       style={{
-        padding: '120px 0',
+        padding: '100px 0',
         position: 'relative',
         overflow: 'hidden',
         background: 'radial-gradient(circle at 30% 40%, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 100%)',
@@ -34,21 +73,21 @@ const About = () => {
         display: 'flex',
         alignItems: 'center'
       }}
-      onMouseMove={handleMouseMove}
     >
-      {/* Animated Background Particles - Same as Hero */}
+      {/* Animated Background Particles */}
       <div className="about-particles">
-        {[...Array(20)].map((_, i) => (
-          <div key={i} className={`about-particle about-particle-${i}`} style={{
+        {[...Array(30)].map((_, i) => (
+          <div key={i} style={{
             position: 'absolute',
-            width: '2px',
-            height: '2px',
-            background: 'rgba(255,255,255,0.3)',
+            width: `${2 + Math.random() * 4}px`,
+            height: `${2 + Math.random() * 4}px`,
+            background: `rgba(255,255,255,${0.1 + Math.random() * 0.2})`,
             borderRadius: '50%',
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
-            animation: `float ${5 + Math.random() * 10}s linear infinite`,
-            animationDelay: `${Math.random() * 5}s`
+            animation: `float ${5 + Math.random() * 12}s ease-in-out infinite`,
+            animationDelay: `${Math.random() * 6}s`,
+            filter: 'blur(0.5px)'
           }} />
         ))}
       </div>
@@ -58,174 +97,218 @@ const About = () => {
         position: 'absolute',
         top: '15%',
         right: '5%',
-        width: '350px',
-        height: '350px',
-        background: 'radial-gradient(circle, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0) 70%)',
+        width: '400px',
+        height: '400px',
+        background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%)',
         borderRadius: '50%',
-        animation: 'pulseOrb 10s ease-in-out infinite',
-        filter: 'blur(50px)'
+        animation: 'pulseOrb 12s ease-in-out infinite',
+        filter: 'blur(60px)'
       }} />
       
       <div style={{
         position: 'absolute',
         bottom: '10%',
-        left: '0%',
-        width: '280px',
-        height: '280px',
-        background: 'radial-gradient(circle, rgba(100,100,255,0.05) 0%, rgba(255,255,255,0) 70%)',
+        left: '-5%',
+        width: '320px',
+        height: '320px',
+        background: 'radial-gradient(circle, rgba(100,100,255,0.04) 0%, rgba(255,255,255,0) 70%)',
         borderRadius: '50%',
-        animation: 'pulseOrb 7s ease-in-out infinite reverse',
-        filter: 'blur(45px)'
+        animation: 'pulseOrb 8s ease-in-out infinite reverse',
+        filter: 'blur(55px)'
       }} />
 
       <div style={{
         position: 'absolute',
         top: '50%',
         left: '50%',
-        width: '500px',
-        height: '500px',
-        background: 'radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 70%)',
+        width: '550px',
+        height: '550px',
+        background: 'radial-gradient(circle, rgba(255,255,255,0.02) 0%, rgba(255,255,255,0) 70%)',
         borderRadius: '50%',
         transform: 'translate(-50%, -50%)',
-        animation: 'rotateOrb 25s linear infinite',
-        filter: 'blur(60px)'
+        animation: 'rotateOrb 30s linear infinite',
+        filter: 'blur(70px)'
       }} />
 
       <div className="container" style={{
         width: '100%',
-        maxWidth: '1200px',
+        maxWidth: '1300px',
         margin: '0 auto',
         padding: '0 2rem',
         position: 'relative',
         zIndex: 2
       }}>
+        {/* TWO-COLUMN LAYOUT: LEFT = 3 images, RIGHT = About Me content */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1fr',
           gap: '4rem',
-          alignItems: 'start'
-        }} className="about-grid">
+          alignItems: 'center'
+        }} className="about-split-grid">
           
-          {/* Left side - Name and Title with 3D tilt */}
-          <div 
-            className={`about-left slide-left ${isVisible ? 'animated' : ''}`}
-            style={{
-              transformStyle: 'preserve-3d',
-              perspective: '1000px',
-              transform: `rotateX(${(mousePosition.y - 50) * 0.02}deg) rotateY(${(mousePosition.x - 50) * 0.02}deg)`,
-              transition: 'transform 0.3s ease-out'
-            }}
-          >
-            <div style={{
-              borderLeft: '3px solid var(--text-primary)',
-              paddingLeft: '2rem',
-              position: 'relative'
-            }}>
-              {/* Animated border glow */}
-              <div style={{
-                position: 'absolute',
-                left: -1,
-                top: 0,
-                width: '3px',
-                height: '100%',
-                background: 'linear-gradient(180deg, #ffffff, #666666, #ffffff)',
-                animation: 'borderPulse 3s ease-in-out infinite',
-                borderRadius: '3px'
-              }} />
-              
+          {/* LEFT SIDE: Three big circular images - BEST WORKS STYLE */}
+          <div className={`left-circles ${isVisible ? 'animated' : ''}`} style={{
+            opacity: 0,
+            transform: 'translateX(-30px)',
+            transition: 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+            ...(isVisible && { opacity: 1, transform: 'translateX(0)' })
+          }}>
+            {/* Section header for the circles area */}
+            <div style={{ textAlign: 'center', marginBottom: '2rem' }}>
+              <h3 style={{
+                fontSize: '0.9rem',
+                letterSpacing: '3px',
+                textTransform: 'uppercase',
+                color: 'rgba(255,255,255,0.5)',
+                marginBottom: '0.5rem'
+              }}>Featured Collection</h3>
               <h2 style={{
-                fontSize: '3.5rem',
-                fontWeight: 'bold',
-                marginBottom: '1rem',
-                lineHeight: '1.2',
-                background: 'linear-gradient(135deg, #ffffff 0%, #e0e0e0 50%, #ffffff 100%)',
+                fontSize: '2.2rem',
+                fontWeight: '600',
+                background: 'linear-gradient(135deg, #ffffff 0%, #b0b0b0 100%)',
                 WebkitBackgroundClip: 'text',
                 backgroundClip: 'text',
-                color: 'transparent',
-                backgroundSize: '200% auto',
-                animation: 'shimmer 4s linear infinite'
+                color: 'transparent'
+              }}>Best Works</h2>
+              <p style={{
+                color: 'rgba(255,255,255,0.6)',
+                fontSize: '0.9rem',
+                marginTop: '0.75rem',
+                maxWidth: '400px',
+                marginLeft: 'auto',
+                marginRight: 'auto'
               }}>
-                KALEESH<br />WARAN A
-              </h2>
-              
-              <div className="title-glow">
-                <h3 style={{
-                  fontSize: '1.3rem',
-                  color: 'var(--text-secondary)',
-                  marginBottom: '2rem',
-                  position: 'relative',
-                  display: 'inline-block'
-                }}>
-                  Software Developer
-                  <span style={{
-                    position: 'absolute',
-                    bottom: '-5px',
-                    left: 0,
-                    width: '100%',
-                    height: '2px',
-                    background: 'linear-gradient(90deg, #ffffff, transparent)',
-                    animation: 'underline 2s ease-in-out infinite'
-                  }} />
-                </h3>
-              </div>
-              
-              <div style={{ marginBottom: '2rem' }}>
-                {specializations.map((spec, index) => (
-                  <div 
-                    key={index} 
-                    className={`spec-item animate-slide-up ${isVisible ? 'animated' : ''}`}
-                    style={{ 
-                      animationDelay: `${0.1 * index}s`,
-                      overflow: 'hidden'
+                Be inspired by the newest and most interesting works of famous authors together
+              </p>
+            </div>
+
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '2.5rem'
+            }}>
+              {leftCircles.map((item, index) => (
+                <div
+                  key={item.id}
+                  className={`circle-card`}
+                  style={{
+                    animationDelay: `${index * 0.15}s`,
+                    opacity: 0,
+                    transform: 'scale(0.9)',
+                    animation: isVisible ? `cardPopIn 0.6s cubic-bezier(0.2, 0.9, 0.4, 1.1) ${index * 0.15}s forwards` : 'none'
+                  }}
+                >
+                  <div
+                    onClick={() => navigateTo(item.section)}
+                    onMouseEnter={() => setHoveredCard(item.id)}
+                    onMouseLeave={() => setHoveredCard(null)}
+                    style={{
+                      cursor: 'pointer',
+                      transition: 'all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1)',
+                      transform: hoveredCard === item.id ? 'translateY(-10px)' : 'translateY(0)',
                     }}
                   >
-                    <p style={{
-                      color: 'var(--text-tertiary)',
-                      marginBottom: '0.75rem',
-                      fontSize: '1rem',
-                      position: 'relative',
-                      display: 'inline-block',
-                      cursor: 'pointer',
-                      transition: 'all 0.3s ease'
-                    }}
-                    onMouseEnter={(e) => {
-                      e.currentTarget.style.transform = 'translateX(10px)';
-                      e.currentTarget.style.color = '#ffffff';
-                    }}
-                    onMouseLeave={(e) => {
-                      e.currentTarget.style.transform = 'translateX(0)';
-                      e.currentTarget.style.color = 'var(--text-tertiary)';
+                    {/* BIG Circular Image */}
+                    <div style={{
+                      width: '260px',
+                      height: '260px',
+                      borderRadius: '50%',
+                      overflow: 'hidden',
+                      background: '#1a1a1a',
+                      border: hoveredCard === item.id ? '4px solid rgba(255,255,255,0.5)' : '3px solid rgba(255,255,255,0.15)',
+                      boxShadow: hoveredCard === item.id 
+                        ? '0 25px 40px rgba(0,0,0,0.3), 0 0 0 6px rgba(255,255,255,0.1)' 
+                        : '0 15px 30px rgba(0,0,0,0.2)',
+                      transition: 'all 0.35s ease-out',
+                      position: 'relative'
                     }}>
-                      → {spec}
-                    </p>
+                      <img 
+                        src={item.image} 
+                        alt={item.title}
+                        style={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.6s ease',
+                          transform: hoveredCard === item.id ? 'scale(1.1)' : 'scale(1)'
+                        }}
+                        onError={(e) => handleImageError(e, item.fallback)}
+                      />
+                      {/* Gradient overlay */}
+                      <div style={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'radial-gradient(circle, rgba(0,0,0,0) 60%, rgba(0,0,0,0.4) 100%)',
+                        opacity: hoveredCard === item.id ? 0.6 : 0,
+                        transition: 'opacity 0.3s ease',
+                        borderRadius: '50%',
+                        pointerEvents: 'none'
+                      }} />
+                    </div>
+                    
+                    {/* Title + Subtitle below each image - NO NAMES */}
+                    <div style={{
+                      textAlign: 'center',
+                      marginTop: '1.25rem',
+                      transition: 'all 0.3s ease',
+                      transform: hoveredCard === item.id ? 'translateY(5px)' : 'translateY(0)'
+                    }}>
+                      <h3 style={{
+                        fontSize: '1.2rem',
+                        fontWeight: '600',
+                        color: 'var(--text-primary)',
+                        marginBottom: '0.25rem'
+                      }}>
+                        {item.title}
+                      </h3>
+                      <p style={{
+                        fontSize: '0.85rem',
+                        color: 'var(--text-tertiary)',
+                        opacity: 0.8
+                      }}>
+                        {item.subtitle}
+                      </p>
+                    </div>
                   </div>
-                ))}
-              </div>
-              
-              <div className="website-link" style={{
-                fontSize: '0.9rem',
-                color: 'var(--text-secondary)',
-                position: 'relative',
-                display: 'inline-block'
-              }}>
-                <span style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '8px'
-                }}>
-                  <span style={{
-                    width: '30px',
-                    height: '1px',
-                    background: 'linear-gradient(90deg, #ffffff, transparent)'
-                  }} />
-                  kaleesh.me
-                </span>
-              </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Show more button at the bottom of circles section */}
+            <div style={{ textAlign: 'center', marginTop: '2rem' }}>
+              <button style={{
+                background: 'transparent',
+                border: '1px solid rgba(255,255,255,0.2)',
+                padding: '0.6rem 1.5rem',
+                borderRadius: '40px',
+                color: 'white',
+                fontSize: '0.85rem',
+                cursor: 'pointer',
+                transition: 'all 0.3s ease',
+                fontFamily: 'inherit'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = 'rgba(255,255,255,0.1)';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.4)';
+                e.currentTarget.style.transform = 'translateY(-2px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = 'transparent';
+                e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)';
+                e.currentTarget.style.transform = 'translateY(0)';
+              }}
+              onClick={() => navigateTo('projects')}>
+                Show more →
+              </button>
             </div>
           </div>
-          
-          {/* Right side - Detailed info with animations */}
-          <div className="about-right">
+
+          {/* RIGHT SIDE: About Me Content */}
+          <div className="right-about">
             <div className={`animate-slide-up ${isVisible ? 'animated' : ''}`} style={{ animationDelay: '0.1s' }}>
               <h2 style={{
                 fontSize: '2.5rem',
@@ -277,6 +360,7 @@ const About = () => {
               </p>
             </div>
             
+            {/* Experience + Education Cards (2 columns) */}
             <div className={`animate-slide-up ${isVisible ? 'animated' : ''}`} style={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr',
@@ -284,7 +368,6 @@ const About = () => {
               marginBottom: '2rem',
               animationDelay: '0.4s'
             }}>
-              {/* Experience Card */}
               <div className="info-card" style={{
                 padding: '1rem 0',
                 position: 'relative',
@@ -304,8 +387,7 @@ const About = () => {
                   fontWeight: 'bold', 
                   fontSize: '1rem',
                   display: 'block',
-                  marginBottom: '0.5rem',
-                  position: 'relative'
+                  marginBottom: '0.5rem'
                 }}>
                   💼 Experience
                 </span>
@@ -317,7 +399,6 @@ const About = () => {
                 </p>
               </div>
               
-              {/* Education Card */}
               <div className="info-card" style={{
                 padding: '1rem 0',
                 position: 'relative',
@@ -360,7 +441,7 @@ const About = () => {
                 flexWrap: 'wrap',
                 gap: '0.75rem'
               }}>
-                {['React.js', '.NET', 'React Native', 'Node.js', 'MongoDB', 'TypeScript'].map((skill, index) => (
+                {['React.js', '.NET', 'React Native', 'Node.js', 'MongoDB', 'TypeScript'].map((skill) => (
                   <span key={skill} className="skill-tag" style={{
                     padding: '0.4rem 1rem',
                     background: 'rgba(255,255,255,0.05)',
@@ -387,8 +468,19 @@ const About = () => {
               </div>
             </div>
             
+            {/* Download Resume Button */}
             <div className={`animate-slide-up ${isVisible ? 'animated' : ''}`} style={{ animationDelay: '0.6s' }}>
-              <div className="btn-wrapper">
+              <div className="btn-wrapper" style={{
+                transition: 'all 0.3s ease'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-2px)';
+                e.currentTarget.style.filter = 'drop-shadow(0 5px 15px rgba(255,255,255,0.1))';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.filter = 'none';
+              }}>
                 <Button variant="outline">
                   Download Resume
                 </Button>
@@ -398,17 +490,17 @@ const About = () => {
         </div>
       </div>
 
-      {/* Add all animations - Same as Hero */}
+      {/* Global Styles & Animations */}
       <style jsx>{`
         @keyframes float {
-          0%, 100% { transform: translateY(0) translateX(0); }
-          25% { transform: translateY(-20px) translateX(10px); }
-          75% { transform: translateY(20px) translateX(-10px); }
+          0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+          25% { transform: translateY(-25px) translateX(12px); opacity: 0.6; }
+          75% { transform: translateY(20px) translateX(-10px); opacity: 0.4; }
         }
         
         @keyframes pulseOrb {
-          0%, 100% { transform: scale(1); opacity: 0.3; }
-          50% { transform: scale(1.2); opacity: 0.5; }
+          0%, 100% { transform: scale(1); opacity: 0.2; }
+          50% { transform: scale(1.15); opacity: 0.35; }
         }
         
         @keyframes rotateOrb {
@@ -421,20 +513,20 @@ const About = () => {
           100% { background-position: 100% 50%; }
         }
         
-        @keyframes borderPulse {
-          0%, 100% { opacity: 0.3; }
-          50% { opacity: 1; }
-        }
-        
-        @keyframes underline {
-          0% { width: 0; opacity: 0; }
-          50% { width: 100%; opacity: 1; }
-          100% { width: 0; opacity: 0; }
-        }
-        
         @keyframes expandWidth {
           from { width: 0; }
           to { width: 60px; }
+        }
+        
+        @keyframes cardPopIn {
+          0% {
+            opacity: 0;
+            transform: scale(0.85);
+          }
+          100% {
+            opacity: 1;
+            transform: scale(1);
+          }
         }
         
         .animate-slide-up {
@@ -448,64 +540,42 @@ const About = () => {
           transform: translateY(0);
         }
         
-        .slide-left {
-          opacity: 0;
-          transform: translateX(-30px);
-          transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .slide-left.animated {
-          opacity: 1;
-          transform: translateX(0);
-        }
-        
         .btn-wrapper {
           transition: all 0.3s ease;
         }
         
-        .btn-wrapper:hover {
-          transform: translateY(-2px);
-          filter: drop-shadow(0 5px 15px rgba(255,255,255,0.1));
+        /* CSS Variables for consistent theming */
+        :root {
+          --text-primary: #ffffff;
+          --text-secondary: #e0e0e0;
+          --text-tertiary: #a0a0a0;
         }
         
-        /* Responsive Styles */
+        /* Responsive: stack on smaller screens */
         @media (max-width: 968px) {
-          .about-grid {
+          .about-split-grid {
             grid-template-columns: 1fr !important;
             gap: 3rem !important;
             text-align: center;
           }
           
-          .about-left {
+          .left-circles {
+            order: 1;
+          }
+          
+          .right-about {
+            order: 2;
             text-align: center;
           }
           
-          .about-left > div {
-            border-left: none !important;
-            border-top: 3px solid var(--text-primary);
-            padding-left: 0 !important;
-            padding-top: 2rem;
-          }
-          
-          .about-left > div > div:first-child {
+          .right-about h2 span {
             left: 50% !important;
             transform: translateX(-50%);
-            width: 3px;
-            height: 50px;
-            top: -20px;
           }
           
-          .website-link span {
-            justify-content: center;
-          }
-          
-          .about-right {
+          .right-about h2 {
+            display: block;
             text-align: center;
-          }
-          
-          .about-right h2 span {
-            left: 50% !important;
-            transform: translateX(-50%);
           }
           
           .info-card {
@@ -516,41 +586,40 @@ const About = () => {
             display: inline-block;
           }
           
-          h2 {
-            font-size: 2rem !important;
+          .container {
+            padding: 0 1.5rem !important;
           }
           
-          h3 {
-            font-size: 1.1rem !important;
+          .circle-card div div {
+            width: 220px !important;
+            height: 220px !important;
           }
         }
         
         @media (max-width: 768px) {
-          .container {
-            padding: 0 1.5rem !important;
+          .circle-card div div {
+            width: 180px !important;
+            height: 180px !important;
+          }
+          
+          h2 {
+            font-size: 2rem !important;
           }
         }
         
         @media (max-width: 480px) {
-          .about-grid {
-            gap: 2rem !important;
+          .circle-card div div {
+            width: 140px !important;
+            height: 140px !important;
           }
           
-          .container {
-            padding: 0 1rem !important;
-          }
-          
-          h2 {
-            font-size: 1.8rem !important;
-          }
-          
-          .info-card {
-            padding: 0.5rem 0 !important;
+          h3 {
+            font-size: 1rem !important;
           }
           
           .skill-tag {
-            font-size: 0.75rem !important;
-            padding: 0.3rem 0.8rem !important;
+            font-size: 0.7rem !important;
+            padding: 0.25rem 0.7rem !important;
           }
         }
       `}</style>
