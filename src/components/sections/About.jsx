@@ -602,9 +602,9 @@ const About = () => {
             height: 180px !important;
           }
           
-          h2 {
-            font-size: 2rem !important;
-          }
+          // h2 {
+          //   font-size: 2rem !important;
+          // }
         }
         
         @media (max-width: 480px) {
