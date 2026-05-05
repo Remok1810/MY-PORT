@@ -31,10 +31,10 @@ const Hero = () => {
     <section
       id="home"
       style={{
-        minHeight: '100vh',
+        minHeight: 'auto',
         display: 'flex',
         alignItems: 'center',
-        padding: '100px 0 50px',
+        padding: '120px 0 20px',
         position: 'relative',
         overflow: 'hidden',
         background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 100%)'

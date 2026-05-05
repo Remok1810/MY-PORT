@@ -196,8 +196,8 @@ const About = ({ onNavigate }) => {
       <style>{`
         .about-section {
           background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 100%);
-          min-height: 100vh;
-          padding: 100px 20px;
+          min-height: auto;
+          padding: 20px 20px 100px 20px;
           display: flex;
           justify-content: center;
           position: relative;
@@ -533,10 +533,23 @@ const About = ({ onNavigate }) => {
           100% { background-position: 100% 50%; }
         }
 
+        /* Responsive adjustments for mobile */
+        @media (max-width: 767px) {
+          .item-2 {
+            right: -20px;
+          }
+          .item-3 {
+            left: -30px;
+          }
+            .item-1 {
+              left: -30px;
+            }
+        }
+
         /* Responsive adjustments for desktop */
         @media (min-width: 768px) {
           .about-section {
-            padding: 120px 40px;
+            padding: 20px 40px 100px 40px;
           }
           
           .container {
