@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import workImageOne from '../../assets/images/work-one.jpg';
 import workImageTwo from '../../assets/images/work-two.jpg';
 import workImageThree from '../../assets/images/work-three.jpg';
+import resumePdf from '../../assets/A KALEESHWARAN.pdf.pdf';
 
 const fallbackImages = {
   work1: 'https://images.unsplash.com/photo-1542744094-24638eff58bb?w=400&h=400&fit=crop',
@@ -104,9 +105,14 @@ const About = ({ onNavigate }) => {
           </div> */}
 
           <div className="resume-btn-container">
-            <button className="download-resume-btn">
+            <a 
+              href={resumePdf} 
+              download="Kaleeshwaran_Resume.pdf" 
+              className="download-resume-btn" 
+              style={{ display: 'inline-block', textDecoration: 'none' }}
+            >
               Download Resume
-            </button>
+            </a>
           </div>
         </div>
 

@@ -3,12 +3,31 @@ import React from 'react';
 const Footer = () => {
   return (
     <footer style={{
-      backgroundColor: 'var(--bg-secondary)',
-      borderTop: '1px solid var(--border-light)',
+      background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 100%)',
+      borderTop: '1px solid rgba(255,255,255,0.05)',
       padding: '3rem 0',
-      marginTop: 'auto'
+      marginTop: 'auto',
+      position: 'relative',
+      overflow: 'hidden'
     }}>
-      <div className="container">
+      {/* Animated Background Particles */}
+      <div className="particles" style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 0, pointerEvents: 'none' }}>
+        {[...Array(15)].map((_, i) => (
+          <div key={i} className={`particle particle-${i}`} style={{
+            position: 'absolute',
+            width: '2px',
+            height: '2px',
+            background: 'rgba(255,255,255,0.3)',
+            borderRadius: '50%',
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animation: `float ${5 + Math.random() * 10}s linear infinite`,
+            animationDelay: `${Math.random() * 5}s`
+          }} />
+        ))}
+      </div>
+
+      <div className="container" style={{ position: 'relative', zIndex: 1 }}>
         <div style={{
           display: 'flex',
           justifyContent: 'space-between',
