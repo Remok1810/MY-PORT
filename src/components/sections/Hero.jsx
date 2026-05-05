@@ -23,13 +23,13 @@ const Hero = () => {
 
 
   useEffect(() => {
-  const img = new Image();
-  img.src = profileImg;
-}, []);
+    const img = new Image();
+    img.src = profileImg;
+  }, []);
 
   return (
-    <section 
-      id="home" 
+    <section
+      id="home"
       style={{
         minHeight: '100vh',
         display: 'flex',
@@ -70,7 +70,7 @@ const Hero = () => {
         animation: 'pulse 8s ease-in-out infinite',
         filter: 'blur(40px)'
       }} />
-      
+
       <div style={{
         position: 'absolute',
         bottom: '20%',
@@ -97,10 +97,10 @@ const Hero = () => {
           gap: '4rem',
           alignItems: 'center'
         }} className="hero-grid">
-          
+
           {/* Left Side - Photo with 3D Tilt Effect - INCREASED HEIGHT */}
-          <div 
-          className={`photo-container animate-slide-right ${isVisible ? 'animated' : ''}`}
+          <div
+            className={`photo-container animate-slide-right ${isVisible ? 'animated' : ''}`}
             style={{
               position: 'relative',
               display: 'flex',
@@ -132,7 +132,7 @@ const Hero = () => {
                 backgroundSize: '300% 300%',
                 zIndex: -1
               }} />
-              
+
               {/* Photo Frame with Glow Effect - INCREASED HEIGHT */}
               <div style={{
                 position: 'relative',
@@ -144,14 +144,14 @@ const Hero = () => {
                 cursor: 'pointer',
                 backgroundColor: '#1a1a1a'
               }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.02)';
-                e.currentTarget.style.boxShadow = '0 40px 80px rgba(0,0,0,0.9)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.boxShadow = '0 30px 60px rgba(0,0,0,0.8)';
-              }}>
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.02)';
+                  e.currentTarget.style.boxShadow = '0 40px 80px rgba(0,0,0,0.9)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = '0 30px 60px rgba(0,0,0,0.8)';
+                }}>
                 {/* INCREASED IMAGE HEIGHT - Changed from paddingBottom 100% to 120% */}
                 <div style={{
                   width: '100%',
@@ -163,28 +163,28 @@ const Hero = () => {
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}>
-                  
-                  <img 
-  src={profileImg} 
-  alt="Kaleeshwaran A"
-  loading="eager"
-  style={{
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    objectFit: 'cover',
-    objectPosition: 'center top',
-    display: 'block'
-  }}
-  onError={(e) => {
-    e.target.src = 'https://via.placeholder.com/450x540/1a1a1a/ffffff?text=KALEESHWARAN+A';
-  }}
-/>
+
+                  <img
+                    src={profileImg}
+                    alt="Kaleeshwaran A"
+                    loading="eager"
+                    style={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      objectPosition: 'center top',
+                      display: 'block'
+                    }}
+                    onError={(e) => {
+                      e.target.src = 'https://via.placeholder.com/450x540/1a1a1a/ffffff?text=KALEESHWARAN+A';
+                    }}
+                  />
                 </div>
               </div>
-              
+
               {/* Decorative Elements with Animation */}
               <div style={{
                 position: 'absolute',
@@ -197,7 +197,7 @@ const Hero = () => {
                 zIndex: -2,
                 animation: 'rotate 20s linear infinite'
               }} />
-              
+
               <div style={{
                 position: 'absolute',
                 top: '30px',
@@ -210,7 +210,7 @@ const Hero = () => {
                 zIndex: -1,
                 animation: 'fadeInOut 2s ease-in-out infinite'
               }} />
-              
+
               <div style={{
                 position: 'absolute',
                 bottom: '30px',
@@ -225,7 +225,7 @@ const Hero = () => {
               }} />
             </div>
           </div>
-          
+
           {/* Right Side - Content with Staggered Animations */}
           <div className="content-container">
             {/* Portfolio Label with Glow */}
@@ -254,7 +254,7 @@ const Hero = () => {
                 WELCOME TO MY PORTFOLIO
               </span>
             </div>
-            
+
             {/* Name with Gradient Animation */}
             <div className={`animate-slide-up ${isVisible ? 'animated' : ''}`} style={{ animationDelay: '0.1s' }}>
               <h1 style={{
@@ -269,10 +269,10 @@ const Hero = () => {
                 backgroundSize: '300% auto',
                 animation: 'shimmer 3s linear infinite'
               }}>
-                KALEESHWARAN 
+                KALEESHWARAN
               </h1>
             </div>
-            
+
             {/* Title with Typing Effect */}
             <div className={`animate-slide-up ${isVisible ? 'animated' : ''}`} style={{ animationDelay: '0.2s' }}>
               <div className="typing-wrapper" style={{
@@ -293,7 +293,7 @@ const Hero = () => {
                 </h2>
               </div>
             </div>
-            
+
             {/* Specialization with Hover Effect */}
             <div className={`animate-slide-up ${isVisible ? 'animated' : ''}`} style={{ animationDelay: '0.3s' }}>
               <div style={{
@@ -329,7 +329,7 @@ const Hero = () => {
                 </span>
               </div>
             </div>
-            
+
             {/* Description with Fade In */}
             <div className={`animate-slide-up ${isVisible ? 'animated' : ''}`} style={{ animationDelay: '0.4s' }}>
               <p style={{
@@ -344,7 +344,7 @@ const Hero = () => {
                 Passionate about creating seamless digital experiences across web and mobile platforms.
               </p>
             </div>
-            
+
             {/* Buttons with Hover Effects */}
             <div className={`animate-slide-up ${isVisible ? 'animated' : ''}`} style={{
               display: 'flex',
@@ -364,7 +364,7 @@ const Hero = () => {
                 </Button>
               </div>
             </div>
-            
+
             {/* Stats with Counter Animation */}
             {/* <div className={`animate-slide-up ${isVisible ? 'animated' : ''}`} style={{
               display: 'flex',
@@ -417,7 +417,7 @@ const Hero = () => {
           </div>
         </div>
       </div>
-      
+
       {/* Scroll Indicator */}
       {/* <div className="scroll-indicator" style={{
         position: 'absolute',
