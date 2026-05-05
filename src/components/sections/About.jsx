@@ -114,13 +114,13 @@ const About = ({ onNavigate }) => {
         <div className="collage-container">
 
           {/* Projects */}
-          <div className="collage-item item-1" onClick={() => onNavigate && onNavigate('Projects')} style={{ cursor: 'pointer' }}>
+          <div className="collage-item item-1">
             <img
               src={workImageOne}
               onError={(e) => handleImageError(e, fallbackImages.work1)}
               alt="Emma Thompson"
             />
-            <div className="name-pill pill-1">
+            <div className="name-pill pill-1" onClick={() => onNavigate && onNavigate('Projects')} style={{ cursor: 'pointer' }}>
               <span className="arrow-circle">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -132,13 +132,13 @@ const About = ({ onNavigate }) => {
           </div>
 
           {/* Technical Skills */}
-          <div className="collage-item item-2" onClick={() => onNavigate && onNavigate('Skills')} style={{ cursor: 'pointer' }}>
+          <div className="collage-item item-2">
             <img
               src={workImageTwo}
               onError={(e) => handleImageError(e, fallbackImages.work2)}
               alt="James Anderson"
             />
-            <div className="name-pill pill-2">
+            <div className="name-pill pill-2" onClick={() => onNavigate && onNavigate('Skills')} style={{ cursor: 'pointer' }}>
               <span className="arrow-circle">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -150,13 +150,13 @@ const About = ({ onNavigate }) => {
           </div>
 
           {/* Certifications */}
-          <div className="collage-item item-3" onClick={() => onNavigate && onNavigate('Certification')} style={{ cursor: 'pointer' }}>
+          <div className="collage-item item-3">
             <img
               src={workImageThree}
               onError={(e) => handleImageError(e, fallbackImages.work3)}
               alt="Olivia Mitchell"
             />
-            <div className="name-pill pill-3">
+            <div className="name-pill pill-3" onClick={() => onNavigate && onNavigate('Certification')} style={{ cursor: 'pointer' }}>
               <span className="arrow-circle">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
