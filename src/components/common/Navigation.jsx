@@ -118,7 +118,7 @@ const Navigation = ({ activeScreen, setActiveScreen }) => {
             <div style={{
               position: 'absolute',
               bottom: '-4px',
-              left: 0,
+             
               width: '100%',
               height: '2px',
               background: 'linear-gradient(90deg, #ffffff, transparent)',

@@ -211,7 +211,7 @@ const Contact = () => {
                 <input
                   type="text"
                   name="name"
-                  placeholder="John Doe"
+                  // placeholder="John Doe"
                   value={formData.name}
                   onChange={handleChange}
                   required
@@ -254,7 +254,7 @@ const Contact = () => {
                 <input
                   type="email"
                   name="email"
-                  placeholder="john@example.com"
+                  // placeholder="john@example.com"
                   value={formData.email}
                   onChange={handleChange}
                   required
@@ -296,7 +296,7 @@ const Contact = () => {
                 </label>
                 <textarea
                   name="message"
-                  placeholder="Tell me about your project..."
+                  // placeholder="Tell me about your project..."
                   value={formData.message}
                   onChange={handleChange}
                   required
