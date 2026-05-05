@@ -361,18 +361,18 @@ const About = ({ onNavigate }) => {
           left: -20px;
           width: 280px;
           height: 380px;
-          border-radius: 200px;
+          border-radius: 150px;
           z-index: 1;
           animation-delay: 0.1s;
         }
 
         .item-2 {
-          top: 150px;
-          right: 0px;
+          top: 200px;
+          right: 40px;
           width: 240px;
           height: 320px;
           border-radius: 150px;
-          z-index: 2;
+          z-index: 1;
           animation-delay: 0.2s;
         }
 
@@ -382,7 +382,7 @@ const About = ({ onNavigate }) => {
           width: 230px;
           height: 300px;
           border-radius: 150px;
-          z-index: 3;
+          z-index: 2;
           animation-delay: 0.3s;
         }
 
@@ -416,7 +416,7 @@ const About = ({ onNavigate }) => {
 
         .pill-2 {
           bottom: 40px;
-          left: -40px;
+          right: -40px;
           z-index: 4;
         }
 
