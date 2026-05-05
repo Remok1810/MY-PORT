@@ -61,8 +61,8 @@ const Skills = () => {
   ];
 
   return (
-    <section 
-      id="skills" 
+    <section
+      id="skills"
       style={{
         padding: '120px 0',
         position: 'relative',
@@ -102,7 +102,7 @@ const Skills = () => {
         animation: 'floatOrb 15s ease-in-out infinite',
         filter: 'blur(60px)'
       }} />
-      
+
       <div style={{
         position: 'absolute',
         bottom: '10%',
@@ -135,7 +135,7 @@ const Skills = () => {
         position: 'relative',
         zIndex: 2
       }}>
-        
+
         {/* Section Header */}
         <div className={`section-header ${isVisible ? 'animate-slide-up' : ''}`} style={{
           textAlign: 'center',
@@ -217,7 +217,7 @@ const Skills = () => {
               </linearGradient>
             </defs>
           </svg>
-          
+
           <div style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(5, 1fr)',
@@ -227,7 +227,7 @@ const Skills = () => {
             zIndex: 1
           }} className="tree-grid">
             {skillTree.map((item, idx) => (
-              <div 
+              <div
                 key={item.id}
                 className={`tree-node ${isVisible ? 'animate-tree' : ''}`}
                 style={{
@@ -251,7 +251,7 @@ const Skills = () => {
                     transformOrigin: 'left'
                   }} />
                 )}
-                
+
                 <div style={{
                   background: `linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)`,
                   backdropFilter: 'blur(10px)',
@@ -265,18 +265,18 @@ const Skills = () => {
                   position: 'relative',
                   overflow: 'hidden'
                 }}
-                onMouseEnter={(e) => {
-                  setHoveredSkill(item.id);
-                  e.currentTarget.style.transform = 'translateY(-10px)';
-                  e.currentTarget.style.borderColor = item.color;
-                  e.currentTarget.style.boxShadow = `0 20px 40px rgba(0,0,0,0.3), 0 0 20px ${item.color}20`;
-                }}
-                onMouseLeave={(e) => {
-                  setHoveredSkill(null);
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}>
+                  onMouseEnter={(e) => {
+                    setHoveredSkill(item.id);
+                    e.currentTarget.style.transform = 'translateY(-10px)';
+                    e.currentTarget.style.borderColor = item.color;
+                    e.currentTarget.style.boxShadow = `0 20px 40px rgba(0,0,0,0.3), 0 0 20px ${item.color}20`;
+                  }}
+                  onMouseLeave={(e) => {
+                    setHoveredSkill(null);
+                    e.currentTarget.style.transform = 'translateY(0)';
+                    e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}>
                   {/* Number badge */}
                   <div style={{
                     position: 'absolute',
@@ -295,7 +295,7 @@ const Skills = () => {
                   }}>
                     {String(item.id).padStart(2, '0')}
                   </div>
-                  
+
                   {/* Icon with rotating animation on hover */}
                   <div style={{
                     fontSize: '3rem',
@@ -306,7 +306,7 @@ const Skills = () => {
                   }}>
                     {item.icon}
                   </div>
-                  
+
                   <h3 style={{
                     fontSize: '1.2rem',
                     fontWeight: '600',
@@ -318,7 +318,7 @@ const Skills = () => {
                   }}>
                     {item.title}
                   </h3>
-                  
+
                   <p style={{
                     fontSize: '0.75rem',
                     color: 'var(--text-tertiary)',
@@ -327,7 +327,7 @@ const Skills = () => {
                   }}>
                     {item.description}
                   </p>
-                  
+
                   {/* Skills tags */}
                   <div style={{
                     display: 'flex',
@@ -367,7 +367,7 @@ const Skills = () => {
           </div>
         </div>
 
-        
+
       </div>
 
       <style jsx>{`

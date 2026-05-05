@@ -158,7 +158,6 @@ const Hero = () => {
                   aspectRatio: '3/4', // Ensures portrait ratio
                   backgroundColor: '#1a1a1a',
                   position: 'relative',
-                  minHeight: '260px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
@@ -589,19 +588,9 @@ const Hero = () => {
             max-width: 320px;
             width: 100%;
             margin: 0 auto;
-            min-width: 180px;
           }
           .photo-container > div {
             max-width: 100% !important;
-            min-width: 160px;
-          }
-          .photo-container img {
-            min-width: 120px;
-            min-height: 160px;
-            max-width: 100%;
-            max-height: 350px;
-            aspect-ratio: 3/4;
-            object-fit: cover;
           }
           .content-container {
             order: 2;
@@ -624,22 +613,12 @@ const Hero = () => {
 
         @media (max-width: 600px) {
           .photo-container {
-            max-width: 90vw;
-            min-width: 120px;
+            max-width: 280px;
             width: 100%;
-            margin: 0 auto 1.5rem auto;
+            margin: 0 auto 2rem auto;
           }
           .photo-container > div {
             max-width: 100% !important;
-            min-width: 100px;
-          }
-          .photo-container img {
-            min-width: 80px;
-            min-height: 100px;
-            max-width: 100%;
-            max-height: 250px;
-            aspect-ratio: 3/4;
-            object-fit: cover;
           }
         }
         

@@ -22,15 +22,92 @@ const About = () => {
 
   return (
     <section id="about" className={`about-section ${isVisible ? 'visible' : ''}`}>
-      <div className="container">
+      {/* Animated Background Particles */}
+      <div className="particles">
+        {[...Array(20)].map((_, i) => (
+          <div key={i} className={`particle particle-${i}`} style={{
+            position: 'absolute',
+            width: '2px',
+            height: '2px',
+            background: 'rgba(255,255,255,0.3)',
+            borderRadius: '50%',
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            animation: `float ${5 + Math.random() * 10}s linear infinite`,
+            animationDelay: `${Math.random() * 5}s`
+          }} />
+        ))}
+      </div>
+
+      {/* Animated Gradient Orbs */}
+      <div style={{
+        position: 'absolute',
+        top: '20%',
+        left: '10%',
+        width: '300px',
+        height: '300px',
+        background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%)',
+        borderRadius: '50%',
+        animation: 'pulse 8s ease-in-out infinite',
+        filter: 'blur(40px)',
+        zIndex: 0
+      }} />
+
+      <div style={{
+        position: 'absolute',
+        bottom: '20%',
+        right: '10%',
+        width: '400px',
+        height: '400px',
+        background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%)',
+        borderRadius: '50%',
+        animation: 'pulse 6s ease-in-out infinite reverse',
+        filter: 'blur(50px)',
+        zIndex: 0
+      }} />
+
+      <div className="container" style={{ zIndex: 1 }}>
 
         {/* Header Section */}
         <div className="header-text">
-          <h1>Best Works</h1>
-          <p>
-            Be inspired by the <span className="highlight">newest</span> and most{' '}
-            <span className="highlight">interesting works</span> of <span className="highlight">famous</span> authors together
-          </p>
+          <div className="about-header">
+            <h1>About Me</h1>
+            <div className="header-underline"></div>
+          </div>
+
+          <div className="about-description">
+            <p>
+              I'm a passionate Software Developer with expertise in building full-stack applications across web, Android, iOS, and Windows platforms. With a strong foundation in React.js, .NET, and modern technologies, I create scalable and efficient solutions.
+            </p>
+            <p>
+              Throughout my career, I've managed complete end-to-end development lifecycles and successfully deployed applications on Google Play Store and Apple App Store.
+            </p>
+          </div>
+
+          {/* <div className="about-details">
+            <div className="detail-column">
+              <h3>💼 Experience</h3>
+              <p className="detail-title">Junior Full Stack Developer</p>
+              <p className="detail-subtitle">TATA Strive Certified</p>
+            </div>
+            <div className="detail-column">
+              <h3>🎓 Education</h3>
+              <p className="detail-title">B.E Computer Science</p>
+              <p className="detail-subtitle">CGPA: 7.9</p>
+            </div>
+          </div>
+
+          <div className="skills-container">
+            {['React.js', '.NET', 'React Native', 'Node.js', 'MongoDB', 'TypeScript'].map(skill => (
+              <span key={skill} className="skill-pill">{skill}</span>
+            ))}
+          </div> */}
+
+          <div className="resume-btn-container">
+            <button className="download-resume-btn">
+              Download Resume
+            </button>
+          </div>
         </div>
 
         {/* Collage Section */}
@@ -118,12 +195,12 @@ const About = () => {
 
       <style>{`
         .about-section {
-          background-color: #111615;
+          background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 100%);
           min-height: 100vh;
           padding: 100px 20px;
           display: flex;
           justify-content: center;
-          font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+          position: relative;
           overflow: hidden;
           opacity: 0;
           transition: opacity 0.5s ease;
@@ -144,26 +221,111 @@ const About = () => {
           animation: fadeUp 0.8s ease-out;
         }
 
+        .about-header {
+          margin-bottom: 20px;
+        }
+
         .header-text h1 {
-          color: #ffffff;
           font-size: 2.8rem;
           font-weight: 700;
-          margin: 0 0 15px 0;
+          margin: 0 0 10px 0;
           letter-spacing: -0.5px;
+          background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 25%, #ffffff 50%, #a0a0a0 75%, #ffffff 100%);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+          background-size: 300% auto;
+          animation: shimmer 3s linear infinite;
         }
 
-        .header-text p {
+        .header-underline {
+          width: 60px;
+          height: 2px;
+          background-color: #a0a0a0;
+          border-radius: 2px;
+        }
+
+        .about-description {
+          margin-bottom: 30px;
+        }
+
+        .about-description p {
+          color: var(--text-tertiary, #a0a0a0);
+          font-size: 0.95rem;
+          line-height: 1.7;
+          margin: 0 0 15px 0;
+        }
+
+        .about-details {
+          display: flex;
+          gap: 40px;
+          margin-bottom: 30px;
+        }
+
+        .detail-column h3 {
           color: #ffffff;
           font-size: 1.1rem;
-          line-height: 1.6;
-          margin: 0;
-          opacity: 0.9;
-          max-width: 380px;
+          font-weight: 600;
+          margin: 0 0 10px 0;
+          display: flex;
+          align-items: center;
+          gap: 8px;
         }
 
-        .highlight {
-          color: #4ade80;
-          font-weight: 500;
+        .detail-title {
+          color: #d1d5db;
+          font-size: 0.9rem;
+          margin: 0 0 5px 0;
+        }
+
+        .detail-subtitle {
+          color: var(--text-tertiary, #888);
+          font-size: 0.8rem;
+          margin: 0;
+        }
+
+        .skills-container {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 10px;
+          margin-bottom: 30px;
+        }
+
+        .skill-pill {
+          padding: 6px 14px;
+          border-radius: 20px;
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: #e5e7eb;
+          font-size: 0.85rem;
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(5px);
+          transition: all 0.3s ease;
+        }
+
+        .skill-pill:hover {
+          background: rgba(255, 255, 255, 0.1);
+          transform: translateY(-2px);
+        }
+
+        .resume-btn-container {
+          margin-top: 10px;
+        }
+
+        .download-resume-btn {
+          background: transparent;
+          color: #ffffff;
+          border: 1px solid #ffffff;
+          padding: 10px 24px;
+          border-radius: 4px;
+          font-size: 0.95rem;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .download-resume-btn:hover {
+          background: #ffffff;
+          color: #000000;
         }
 
         .collage-container {
@@ -355,6 +517,22 @@ const About = () => {
           }
         }
 
+        @keyframes float {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          25% { transform: translateY(-20px) translateX(10px); }
+          75% { transform: translateY(20px) translateX(-10px); }
+        }
+        
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 0.3; }
+          50% { transform: scale(1.1); opacity: 0.5; }
+        }
+
+        @keyframes shimmer {
+          0% { background-position: 0% 50%; }
+          100% { background-position: 100% 50%; }
+        }
+
         /* Responsive adjustments for desktop */
         @media (min-width: 768px) {
           .about-section {
@@ -371,16 +549,16 @@ const About = () => {
 
           .header-text {
             flex: 1;
-            max-width: 450px;
+            max-width: 500px;
             margin-bottom: 0;
           }
 
           .header-text h1 {
-            font-size: 4.5rem;
+            font-size: 4rem;
           }
 
-          .header-text p {
-            font-size: 1.25rem;
+          .about-description p {
+            font-size: 1.05rem;
           }
 
           .collage-container {
