@@ -7,7 +7,6 @@ const Contact = () => {
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
   const cardRef = useRef(null);
@@ -22,516 +21,401 @@ const Contact = () => {
       { threshold: 0.1 }
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
+    if (sectionRef.current) observer.observe(sectionRef.current);
     return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
+      if (sectionRef.current) observer.unobserve(sectionRef.current);
     };
   }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-
-    // Simulate form submission
     setTimeout(() => {
       console.log('Form submitted:', formData);
-      alert('Thank you for reaching out! I will get back to you soon.');
+      alert('Message sent successfully!');
       setFormData({ name: '', email: '', message: '' });
       setIsSubmitting(false);
-    }, 1500);
+    }, 2000);
   };
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width) * 100;
-    const y = ((e.clientY - rect.top) / rect.height) * 100;
-    setMousePosition({ x, y });
-  };
-
-  const handleCardMouseMove = (e) => {
     if (!cardRef.current) return;
     const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    const rotateX = ((e.clientY - centerY) / (rect.height / 2)) * 10;
-    const rotateY = ((e.clientX - centerX) / (rect.width / 2)) * 10;
-    cardRef.current.style.transform = `perspective(1000px) rotateX(${-rotateX}deg) rotateY(${rotateY}deg) translateZ(20px)`;
-  };
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
 
-  const handleCardMouseLeave = () => {
-    if (cardRef.current) {
-      cardRef.current.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
+
+    cardRef.current.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
+    const glow = cardRef.current.querySelector('.card-glow');
+    if (glow) {
+      glow.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.1) 0%, transparent 80%)`;
     }
   };
 
+  const handleMouseLeave = () => {
+    if (!cardRef.current) return;
+    cardRef.current.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+  };
+
   return (
-    <section
-      id="contact"
-      ref={sectionRef}
-      style={{
-        minHeight: '100vh',
-        padding: '100px 5%',
-        position: 'relative',
-        overflow: 'hidden',
-        background: 'radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 100%)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center'
-      }}
-      onMouseMove={handleMouseMove}
-    >
-      {/* Animated Background Particles */}
-      <div className="particles">
-        {[...Array(20)].map((_, i) => (
-          <div key={i} className={`particle particle-${i}`} style={{
-            position: 'absolute',
-            width: '2px',
-            height: '2px',
-            background: 'rgba(255,255,255,0.3)',
-            borderRadius: '50%',
-            left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            animation: `float ${5 + Math.random() * 10}s linear infinite`,
-            animationDelay: `${Math.random() * 5}s`
-          }} />
-        ))}
+    <section id="contact" ref={sectionRef} className="contact-section">
+      <div className="contact-background">
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
+        <div className="particles-container">
+          {[...Array(15)].map((_, i) => (
+            <div key={i} className={`floating-particle p-${i}`}></div>
+          ))}
+        </div>
       </div>
 
-      {/* Animated Gradient Orbs */}
-      <div style={{
-        position: 'absolute',
-        top: '20%',
-        left: '10%',
-        width: '300px',
-        height: '300px',
-        background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%)',
-        borderRadius: '50%',
-        animation: 'pulse 8s ease-in-out infinite',
-        filter: 'blur(40px)',
-        zIndex: 0
-      }} />
+      <div className="container">
+        <div className={`section-header ${isVisible ? 'animate-in' : ''}`}>
 
-      <div style={{
-        position: 'absolute',
-        bottom: '20%',
-        right: '10%',
-        width: '400px',
-        height: '400px',
-        background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%)',
-        borderRadius: '50%',
-        animation: 'pulse 6s ease-in-out infinite reverse',
-        filter: 'blur(50px)',
-        zIndex: 0
-      }} />
-
-      <div className="container" style={{
-        maxWidth: '1400px',
-        width: '100%',
-        position: 'relative',
-        zIndex: 2
-      }}>
-        {/* Section Title with 3D Effect */}
-        <div className={`section-title-wrapper ${isVisible ? 'visible' : ''}`} style={{
-          textAlign: 'center',
-          marginBottom: '60px',
-          transformStyle: 'preserve-3d',
-          perspective: '500px'
-        }}>
-          <h2 className="section-title-3d" style={{
-            fontSize: 'clamp(2rem, 5vw, 3.5rem)',
-            fontWeight: '700',
-            margin: 0,
-            background: 'linear-gradient(135deg, #ffffff 0%, #4ade80 30%, #ffffff 60%, #4ade80 100%)',
-            WebkitBackgroundClip: 'text',
-            backgroundClip: 'text',
-            color: 'transparent',
-            backgroundSize: '300% auto',
-            animation: 'shimmerText 4s linear infinite',
-            letterSpacing: '-0.02em'
-          }}>
-            Get In Touch
-          </h2>
-          <div className="title-glow" style={{
-            width: '80px',
-            height: '3px',
-            background: 'linear-gradient(90deg, transparent, #4ade80, transparent)',
-            margin: '15px auto 0',
-            borderRadius: '3px'
-          }} />
+          <h2 className="title">Get In <span className="highlight">Touch</span></h2>
+          <div className="title-underline"></div>
         </div>
 
-        <div className="contact-grid-3d" style={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100%'
-        }}>
-
-
-          {/* Centered Form with 3D Effect */}
+        <div className={`contact-wrapper ${isVisible ? 'animate-in' : ''}`}>
           <div
-            className={`form-card ${isVisible ? 'visible' : ''}`}
-            style={{
-              width: '100%',
-              maxWidth: '800px',
-              background: 'rgba(255, 255, 255, 0.03)',
-              backdropFilter: 'blur(20px)',
-              borderRadius: '24px',
-              padding: '50px',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              animation: 'slideInRight 1s ease-out both',
-              animationDelay: '0.3s'
-            }}
+            className="contact-card"
+            ref={cardRef}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
           >
-            <form onSubmit={handleSubmit}>
-              <div className="form-group" style={{ marginBottom: '25px' }}>
-                <label style={{
-                  display: 'block',
-                  marginBottom: '10px',
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  fontSize: '0.9rem',
-                  fontWeight: '600',
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase'
-                }}>
-                  Your Name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  // placeholder="John Doe"
-                  value={formData.name}
-                  onChange={handleChange}
-                  required
-                  className="form-input"
-                  style={{
-                    width: '100%',
-                    padding: '18px 20px',
-                    background: 'rgba(0, 0, 0, 0.3)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    borderRadius: '12px',
-                    color: '#ffffff',
-                    fontSize: '1.05rem',
-                    transition: 'all 0.3s ease',
-                    outline: 'none',
-                    fontFamily: 'inherit'
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#ffffff';
-                    e.currentTarget.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                />
+            <div className="card-glow"></div>
+            <div className="card-border"></div>
+
+            <form onSubmit={handleSubmit} className="contact-form">
+              <div className="form-row">
+                <div className="form-group stagger-1">
+                  <label>Full Name</label>
+                  <div className="input-wrapper">
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      // placeholder="Enter your name"
+                      required
+                    />
+                    <div className="input-focus-bg"></div>
+                  </div>
+                </div>
+
+                <div className="form-group stagger-2">
+                  <label>Email Address</label>
+                  <div className="input-wrapper">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      // placeholder="Enter your email"
+                      required
+                    />
+                    <div className="input-focus-bg"></div>
+                  </div>
+                </div>
               </div>
 
-              <div className="form-group" style={{ marginBottom: '25px' }}>
-                <label style={{
-                  display: 'block',
-                  marginBottom: '10px',
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  fontSize: '0.9rem',
-                  fontWeight: '600',
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase'
-                }}>
-                  Your Email
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  // placeholder="john@example.com"
-                  value={formData.email}
-                  onChange={handleChange}
-                  required
-                  className="form-input"
-                  style={{
-                    width: '100%',
-                    padding: '18px 20px',
-                    background: 'rgba(0, 0, 0, 0.3)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    borderRadius: '12px',
-                    color: '#ffffff',
-                    fontSize: '1.05rem',
-                    transition: 'all 0.3s ease',
-                    outline: 'none',
-                    fontFamily: 'inherit'
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#ffffff';
-                    e.currentTarget.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                />
+              <div className="form-group stagger-3">
+                <label>Your Message</label>
+                <div className="input-wrapper">
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    // placeholder="How can I help you?"
+                    required
+                    rows="5"
+                  ></textarea>
+                  <div className="input-focus-bg"></div>
+                </div>
               </div>
 
-              <div className="form-group" style={{ marginBottom: '40px' }}>
-                <label style={{
-                  display: 'block',
-                  marginBottom: '10px',
-                  color: 'rgba(255, 255, 255, 0.8)',
-                  fontSize: '0.9rem',
-                  fontWeight: '600',
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase'
-                }}>
-                  Your Message
-                </label>
-                <textarea
-                  name="message"
-                  // placeholder="Tell me about your project..."
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                  rows="6"
-                  className="form-textarea"
-                  style={{
-                    width: '100%',
-                    padding: '18px 20px',
-                    background: 'rgba(0, 0, 0, 0.3)',
-                    border: '1px solid rgba(255, 255, 255, 0.15)',
-                    borderRadius: '12px',
-                    color: '#ffffff',
-                    fontSize: '1.05rem',
-                    resize: 'vertical',
-                    transition: 'all 0.3s ease',
-                    outline: 'none',
-                    fontFamily: 'inherit'
-                  }}
-                  onFocus={(e) => {
-                    e.currentTarget.style.borderColor = '#ffffff';
-                    e.currentTarget.style.boxShadow = '0 0 20px rgba(255, 255, 255, 0.1)';
-                  }}
-                  onBlur={(e) => {
-                    e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.15)';
-                    e.currentTarget.style.boxShadow = 'none';
-                  }}
-                />
+              <div className="form-footer stagger-4">
+                <button type="submit" disabled={isSubmitting} className="submit-button">
+                  <span className="button-text">
+                    {isSubmitting ? 'SENDING...' : 'SEND MESSAGE'}
+                  </span>
+                  <div className="button-glow"></div>
+                  <div className="button-shimmer"></div>
+                </button>
               </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="submit-btn-3d"
-                style={{
-                  width: '100%',
-                  padding: '20px',
-                  background: '#ffffff',
-                  border: '1px solid #ffffff',
-                  borderRadius: '12px',
-                  color: '#000000',
-                  fontSize: '1.1rem',
-                  fontWeight: '700',
-                  textTransform: 'uppercase',
-                  letterSpacing: '2px',
-                  cursor: isSubmitting ? 'not-allowed' : 'pointer',
-                  transition: 'all 0.3s ease',
-                  position: 'relative',
-                  overflow: 'hidden',
-                  opacity: isSubmitting ? 0.7 : 1
-                }}
-                onMouseEnter={(e) => {
-                  if (!isSubmitting) {
-                    e.currentTarget.style.transform = 'translateY(-3px)';
-                    e.currentTarget.style.boxShadow = '0 15px 30px rgba(255, 255, 255, 0.2)';
-                    e.currentTarget.style.background = '#e6e6e6';
-                  }
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                  e.currentTarget.style.background = '#ffffff';
-                }}
-              >
-                {isSubmitting ? (
-                  <span className="loading-spinner" style={{
-                    display: 'inline-block',
-                    width: '20px',
-                    height: '20px',
-                    border: '2px solid rgba(0,0,0,0.3)',
-                    borderTopColor: '#000000',
-                    borderRadius: '50%',
-                    animation: 'spin 0.8s linear infinite'
-                  }} />
-                ) : (
-                  'Send Message'
-                )}
-              </button>
             </form>
           </div>
         </div>
       </div>
 
-      <style>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0) translateX(0); }
-          25% { transform: translateY(-20px) translateX(10px); }
-          75% { transform: translateY(20px) translateX(-10px); }
+      <style jsx>{`
+        .contact-section {
+          min-height: 100vh;
+          padding: 100px 0;
+          position: relative;
+          background: #000;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
         }
-        
-        @keyframes pulse {
-          0%, 100% { transform: scale(1); opacity: 0.3; }
-          50% { transform: scale(1.1); opacity: 0.5; }
+
+        .contact-background {
+          position: absolute;
+          inset: 0;
+          z-index: 0;
         }
-        
-        @keyframes floatOrb2 {
-          0%, 100% { transform: translate(0, 0) scale(1); }
-          33% { transform: translate(-30px, 20px) scale(1.05); }
-          66% { transform: translate(20px, -30px) scale(0.95); }
+
+        .orb {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(100px);
+          opacity: 0.15;
         }
-        
-        @keyframes pulseGlow {
-          0%, 100% { opacity: 0.3; transform: translate(-50%, -50%) scale(1); }
-          50% { opacity: 0.6; transform: translate(-50%, -50%) scale(1.2); }
+
+        .orb-1 {
+          top: 10%;
+          left: 5%;
+          width: 400px;
+          height: 400px;
+          background: #fff;
+          animation: floatOrb 15s infinite alternate;
         }
-        
-        @keyframes floatParticle3D {
-          0% {
-            transform: translateY(0) translateX(0) translateZ(0);
-            opacity: 0;
+
+        .orb-2 {
+          bottom: 10%;
+          right: 5%;
+          width: 500px;
+          height: 500px;
+          background: #4ade80;
+          animation: floatOrb 20s infinite alternate-reverse;
+        }
+
+        .floating-particle {
+          position: absolute;
+          width: 2px;
+          height: 2px;
+          background: rgba(255,255,255,0.2);
+          border-radius: 50%;
+        }
+
+        ${[...Array(15)].map((_, i) => `
+          .p-${i} {
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation: particleFloat ${10 + Math.random() * 20}s linear infinite;
+            animation-delay: -${Math.random() * 20}s;
           }
-          10% { opacity: 1; }
-          90% { opacity: 1; }
-          100% {
-            transform: translateY(-100px) translateX(50px) translateZ(100px);
-            opacity: 0;
-          }
+        `).join('\n')}
+
+        .container {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding: 0 2rem;
+          position: relative;
+          z-index: 1;
         }
-        
-        @keyframes shimmerText {
-          0% { background-position: 0% 50%; }
-          100% { background-position: 200% 50%; }
+
+        .section-header {
+          text-align: center;
+          margin-bottom: 60px;
+          opacity: 0;
+          transform: translateY(30px);
         }
-        
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
+
+        .section-header.animate-in {
+          animation: fadeInUp 0.8s forwards;
         }
-        
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
+
+        .subtitle {
+          font-size: 0.85rem;
+          color: #4ade80;
+          letter-spacing: 4px;
+          font-weight: 700;
+          display: block;
+          margin-bottom: 15px;
         }
-        
+
+        .title {
+          font-size: clamp(2.5rem, 6vw, 4rem);
+          color: #fff;
+          font-weight: 800;
+          margin: 0;
+        }
+
+        .highlight {
+          background: linear-gradient(135deg, #fff, #4ade80);
+          -webkit-background-clip: text;
+          background-clip: text;
+          color: transparent;
+        }
+
+        .title-underline {
+          width: 80px;
+          height: 4px;
+          background: #4ade80;
+          margin: 20px auto 0;
+          border-radius: 2px;
+          box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
+        }
+
+        .contact-wrapper {
+          display: flex;
+          justify-content: center;
+          opacity: 0;
+          transform: translateY(40px);
+        }
+
+        .contact-wrapper.animate-in {
+          animation: fadeInUp 1s forwards 0.2s;
+        }
+
+        .contact-card {
+          width: 100%;
+          max-width: 650px;
+          background: rgba(255, 255, 255, 0.03);
+          backdrop-filter: blur(20px);
+          border-radius: 30px;
+          padding: 50px;
+          position: relative;
+          transition: transform 0.1s ease-out;
+          border: 1px solid rgba(255, 255, 255, 0.05);
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-glow {
+          position: absolute;
+          inset: 0;
+          border-radius: 30px;
+          pointer-events: none;
+          z-index: 0;
+        }
+
+        .contact-form {
+          position: relative;
+          z-index: 1;
+        }
+
+        .form-row {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 25px;
+          margin-bottom: 25px;
+        }
+
+        .form-group {
+          margin-bottom: 25px;
+        }
+
+        .form-group label {
+          display: block;
+          font-size: 0.8rem;
+          color: rgba(255,255,255,0.5);
+          margin-bottom: 10px;
+          font-weight: 600;
+          letter-spacing: 1px;
+          text-transform: uppercase;
+        }
+
+        .input-wrapper {
+          position: relative;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+          width: 100%;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 16px;
+          padding: 16px 20px;
+          color: #fff;
+          font-size: 1rem;
+          transition: all 0.3s ease;
+          outline: none;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+          border-color: rgba(74, 222, 128, 0.5);
+          background: rgba(255, 255, 255, 0.08);
+          box-shadow: 0 0 20px rgba(74, 222, 128, 0.1);
+        }
+
+        .submit-button {
+          width: 100%;
+          padding: 18px;
+          border-radius: 50px;
+          background: #fff;
+          color: #000;
+          font-weight: 700;
+          font-size: 1.1rem;
+          border: none;
+          cursor: pointer;
+          position: relative;
+          overflow: hidden;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .submit-button:hover:not(:disabled) {
+          transform: translateY(-5px) scale(1.02);
+          box-shadow: 0 20px 40px rgba(255,255,255,0.2);
+          background: #4ade80;
+        }
+
+        .submit-button:disabled {
+          opacity: 0.6;
+          cursor: not-allowed;
+        }
+
+        .button-shimmer {
+          position: absolute;
+          top: 0;
+          left: -100%;
+          width: 50%;
+          height: 100%;
+          background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.4),
+            transparent
+          );
+          animation: shimmer 3s infinite;
+        }
+
+        /* Animations */
+        @keyframes floatOrb {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(40px, 40px); }
+        }
+
+        @keyframes particleFloat {
+          from { transform: translateY(100vh) rotate(0deg); }
+          to { transform: translateY(-100px) rotate(360deg); }
+        }
+
         @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
+          to { opacity: 1; transform: translateY(0); }
         }
-        
-        @keyframes spin {
-          to { transform: rotate(360deg); }
+
+        @keyframes shimmer {
+          0% { left: -100%; }
+          100% { left: 200%; }
         }
-        
-        .info-card.visible,
-        .form-card.visible {
-          animation: fadeInUp 0.8s ease-out both;
-        }
-        
-        .section-title-wrapper.visible h2 {
-          animation: shimmerText 4s linear infinite;
-        }
-        
-        .form-input:hover,
-        .form-textarea:hover {
-          border-color: #ffffff;
-        }
-        
-        @media (max-width: 968px) {
-          .contact-grid-3d {
-            grid-template-columns: 1fr !important;
-            gap: 30px !important;
-          }
-          
-          .info-card,
-          .form-card {
-            padding: 30px !important;
-          }
-          
-          .social-links-3d {
-            flex-wrap: wrap;
-            justify-content: center;
-          }
-          
-          .social-link {
-            padding: 8px 16px !important;
-            font-size: 0.9rem !important;
-          }
-        }
-        
+
         @media (max-width: 768px) {
-          .contact-grid-3d {
-            gap: 25px !important;
-          }
-          
-          .info-card,
-          .form-card {
-            padding: 25px !important;
-          }
-          
-          .contact-item {
-            padding: 8px !important;
-          }
-          
-          .contact-item > div:first-child {
-            width: 40px !important;
-            height: 40px !important;
-            font-size: 1.2rem !important;
-          }
-        }
-        
-        @media (max-width: 480px) {
-          section {
-            padding: 80px 20px !important;
-          }
-          
-          .info-card,
-          .form-card {
-            padding: 20px !important;
-          }
-          
-          .form-input,
-          .form-textarea {
-            padding: 12px 16px !important;
-          }
-          
-          .submit-btn-3d {
-            padding: 12px !important;
-          }
+          .form-row { grid-template-columns: 1fr; }
+          .contact-card { padding: 30px; }
+          .title { font-size: 2.5rem; }
         }
       `}</style>
     </section>

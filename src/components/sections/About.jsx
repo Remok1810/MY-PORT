@@ -374,7 +374,7 @@ const About = ({ onNavigate }) => {
 
         .item-2 {
           top: 200px;
-          right: 40px;
+          right: 80px;
           width: 240px;
           height: 320px;
           border-radius: 150px;
