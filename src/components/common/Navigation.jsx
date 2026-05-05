@@ -1,34 +1,20 @@
 import React, { useState, useEffect } from 'react';
 
-const Navigation = () => {
+const Navigation = ({ activeScreen, setActiveScreen }) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('Home');
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  
+
   const navItems = ['Home', 'About', 'Skills', 'Projects', 'Certification', 'Contact'];
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
-      // Update active section based on scroll position
-      const sections = navItems.map(item => item.toLowerCase());
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const rect = element.getBoundingClientRect();
-          if (rect.top <= 100 && rect.bottom >= 100) {
-            setActiveSection(section.charAt(0).toUpperCase() + section.slice(1));
-            break;
-          }
-        }
-      }
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [navItems]);
-  
+  }, []);
+
   // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (isMobileMenuOpen) {
@@ -40,36 +26,45 @@ const Navigation = () => {
       document.body.style.overflow = 'unset';
     };
   }, [isMobileMenuOpen]);
-  
+
   const scrollToSection = (section) => {
-    const element = document.getElementById(section.toLowerCase());
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setActiveSection(section);
-      setIsMobileMenuOpen(false);
+    if (section === 'Skills' || section === 'Projects' || section === 'Certification') {
+      setActiveScreen(section);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    } else {
+      setActiveScreen(section);
+      setTimeout(() => {
+        const element = document.getElementById(section.toLowerCase());
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+      }, 100);
     }
+    setIsMobileMenuOpen(false);
   };
-  
+
   const handleMouseMove = (e) => {
     const rect = e.currentTarget.getBoundingClientRect();
     const x = ((e.clientX - rect.left) / rect.width) * 100;
     const y = ((e.clientY - rect.top) / rect.height) * 100;
     setMousePosition({ x, y });
   };
-  
+
   const navStyle = {
     position: 'fixed',
     top: 0,
     left: 0,
     right: 0,
     zIndex: 1000,
-    backgroundColor: isScrolled ? 'rgba(10, 10, 10, 0.95)' : 'rgba(10, 10, 10, 0.8)',
-    backdropFilter: isScrolled ? 'blur(12px)' : 'blur(8px)',
-    borderBottom: isScrolled ? '1px solid rgba(255,255,255,0.1)' : 'none',
+    backgroundColor: isMobileMenuOpen ? 'transparent' : (isScrolled ? 'rgba(10, 10, 10, 0.95)' : 'rgba(10, 10, 10, 0.8)'),
+    backdropFilter: isMobileMenuOpen ? 'none' : (isScrolled ? 'blur(12px)' : 'blur(8px)'),
+    borderBottom: (isScrolled && !isMobileMenuOpen) ? '1px solid rgba(255,255,255,0.1)' : 'none',
     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-    boxShadow: isScrolled ? '0 4px 20px rgba(0,0,0,0.3)' : 'none'
+    boxShadow: (isScrolled && !isMobileMenuOpen) ? '0 4px 20px rgba(0,0,0,0.3)' : 'none'
   };
-  
+
   return (
     <nav style={navStyle} onMouseMove={handleMouseMove}>
       {/* Animated gradient background on scroll */}
@@ -84,8 +79,8 @@ const Navigation = () => {
         opacity: isScrolled ? 0.5 : 0,
         transition: 'opacity 0.3s ease'
       }} />
-      
-      <div className="container" style={{ 
+
+      <div className="container" style={{
         width: '100%',
         maxWidth: '1400px',
         margin: '0 auto',
@@ -93,17 +88,17 @@ const Navigation = () => {
         position: 'relative',
         zIndex: 2
       }}>
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
           alignItems: 'center',
-          gap: '2rem'
+          width: '100%'
         }}>
           {/* Logo with animation */}
-          <div 
+          <div
             className="logo"
-            style={{ 
-              fontSize: '1.8rem', 
+            style={{
+              fontSize: '1.8rem',
               fontWeight: 'bold',
               cursor: 'pointer',
               position: 'relative'
@@ -131,31 +126,31 @@ const Navigation = () => {
               transformOrigin: 'left',
               transition: 'transform 0.3s ease'
             }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'scaleX(1)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'scaleX(0)';
-            }} />
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'scaleX(1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'scaleX(0)';
+              }} />
           </div>
-          
+
           {/* Desktop Navigation */}
-          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }} className="desktop-nav">
+          <div style={{ display: 'flex', gap: '2rem', alignItems: 'center', flex: 1, justifyContent: 'flex-end' }} className="desktop-nav">
             {navItems.map((item) => (
               <button
                 key={item}
                 onClick={() => scrollToSection(item)}
-                className={`nav-link ${activeSection === item ? 'active' : ''}`}
+                className={`nav-link ${activeScreen === item ? 'active' : ''}`}
                 style={{
                   background: 'none',
                   border: 'none',
-                  color: activeSection === item ? '#ffffff' : 'rgba(255,255,255,0.7)',
+                  color: activeScreen === item ? '#ffffff' : 'rgba(255,255,255,0.7)',
                   cursor: 'pointer',
                   fontSize: '1rem',
                   transition: 'all 0.3s ease',
                   padding: '0.5rem 0',
                   position: 'relative',
-                  fontWeight: activeSection === item ? '600' : '400'
+                  fontWeight: activeScreen === item ? '600' : '400'
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.color = '#ffffff';
@@ -163,11 +158,11 @@ const Navigation = () => {
                   if (underline) underline.style.transform = 'scaleX(1)';
                 }}
                 onMouseLeave={(e) => {
-                  if (activeSection !== item) {
+                  if (activeScreen !== item) {
                     e.currentTarget.style.color = 'rgba(255,255,255,0.7)';
                   }
                   const underline = e.currentTarget.querySelector('.nav-underline');
-                  if (underline && activeSection !== item) underline.style.transform = 'scaleX(0)';
+                  if (underline && activeScreen !== item) underline.style.transform = 'scaleX(0)';
                 }}
               >
                 {item}
@@ -177,18 +172,18 @@ const Navigation = () => {
                   left: 0,
                   width: '100%',
                   height: '2px',
-                  background: `linear-gradient(90deg, #ffffff, ${activeSection === item ? '#ffffff' : 'transparent'})`,
-                  transform: activeSection === item ? 'scaleX(1)' : 'scaleX(0)',
+                  background: `linear-gradient(90deg, #ffffff, ${activeScreen === item ? '#ffffff' : 'transparent'})`,
+                  transform: activeScreen === item ? 'scaleX(1)' : 'scaleX(0)',
                   transformOrigin: 'left',
                   transition: 'transform 0.3s ease'
                 }} />
               </button>
             ))}
-            
+
             {/* Contact Button in Nav */}
-            
+
           </div>
-          
+
           {/* Mobile Menu Toggle Button - Amazing Design */}
           <button
             className="mobile-menu-btn"
@@ -226,7 +221,7 @@ const Navigation = () => {
             </span>
           </button>
         </div>
-        
+
         {/* Mobile Menu Overlay - Amazing Design with Animation */}
         {isMobileMenuOpen && (
           <div className="mobile-menu-overlay" style={{
@@ -274,7 +269,7 @@ const Navigation = () => {
               >
                 ✕
               </button>
-              
+
               {/* Logo in mobile menu */}
               <div style={{
                 fontSize: '2rem',
@@ -291,7 +286,7 @@ const Navigation = () => {
                   Portfolio
                 </span>
               </div>
-              
+
               {/* Mobile Nav Items with animations */}
               <div style={{
                 display: 'flex',
@@ -307,14 +302,14 @@ const Navigation = () => {
                     style={{
                       background: 'none',
                       border: 'none',
-                      color: activeSection === item ? '#ffffff' : 'rgba(255,255,255,0.7)',
+                      color: activeScreen === item ? '#ffffff' : 'rgba(255,255,255,0.7)',
                       cursor: 'pointer',
                       fontSize: '1.5rem',
                       textAlign: 'center',
                       padding: '1rem',
                       borderRadius: '12px',
                       transition: 'all 0.3s ease',
-                      fontWeight: activeSection === item ? '600' : '400',
+                      fontWeight: activeScreen === item ? '600' : '400',
                       position: 'relative',
                       overflow: 'hidden',
                       animation: `slideInMobile 0.4s ease-out ${index * 0.05}s both`
@@ -329,7 +324,7 @@ const Navigation = () => {
                     }}
                   >
                     {item}
-                    {activeSection === item && (
+                    {activeScreen === item && (
                       <span style={{
                         position: 'absolute',
                         bottom: '0',
@@ -344,7 +339,7 @@ const Navigation = () => {
                   </button>
                 ))}
               </div>
-              
+
               {/* Mobile Contact Button */}
               <button
                 onClick={() => scrollToSection('Contact')}
@@ -372,7 +367,7 @@ const Navigation = () => {
               >
                 Hire Me
               </button>
-              
+
               {/* Social links in mobile menu */}
               <div style={{
                 display: 'flex',
@@ -410,7 +405,7 @@ const Navigation = () => {
           </div>
         )}
       </div>
-      
+
       <style jsx>{`
         @keyframes shimmerNav {
           0% { background-position: 0% 50%; }

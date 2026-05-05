@@ -9,7 +9,7 @@ const fallbackImages = {
   work3: 'https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=400&h=400&fit=crop'
 };
 
-const About = () => {
+const About = ({ onNavigate }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
@@ -113,8 +113,8 @@ const About = () => {
         {/* Collage Section */}
         <div className="collage-container">
 
-          {/* Emma Thompson */}
-          <div className="collage-item item-1">
+          {/* Projects */}
+          <div className="collage-item item-1" onClick={() => onNavigate && onNavigate('Projects')} style={{ cursor: 'pointer' }}>
             <img
               src={workImageOne}
               onError={(e) => handleImageError(e, fallbackImages.work1)}
@@ -127,12 +127,12 @@ const About = () => {
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </span>
-              <span className="name-text">Emma Thompson</span>
+              <span className="name-text">Projects</span>
             </div>
           </div>
 
-          {/* James Anderson */}
-          <div className="collage-item item-2">
+          {/* Technical Skills */}
+          <div className="collage-item item-2" onClick={() => onNavigate && onNavigate('Skills')} style={{ cursor: 'pointer' }}>
             <img
               src={workImageTwo}
               onError={(e) => handleImageError(e, fallbackImages.work2)}
@@ -145,12 +145,12 @@ const About = () => {
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </span>
-              <span className="name-text">James Anderson</span>
+              <span className="name-text">Technical Skills</span>
             </div>
           </div>
 
-          {/* Olivia Mitchell */}
-          <div className="collage-item item-3">
+          {/* Certifications */}
+          <div className="collage-item item-3" onClick={() => onNavigate && onNavigate('Certification')} style={{ cursor: 'pointer' }}>
             <img
               src={workImageThree}
               onError={(e) => handleImageError(e, fallbackImages.work3)}
@@ -163,7 +163,7 @@ const About = () => {
                   <polyline points="12 5 19 12 12 19"></polyline>
                 </svg>
               </span>
-              <span className="name-text">Olivia Mitchell</span>
+              <span className="name-text">Certifications</span>
             </div>
           </div>
 

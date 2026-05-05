@@ -10,20 +10,26 @@ import Footer from './components/layout/Footer';
 import './styles/globals.css';
 
 function App() {
+  const [activeScreen, setActiveScreen] = React.useState('Home');
+
   return (
     <div className="App" style={{
       display: 'flex',
       flexDirection: 'column',
       minHeight: '100vh'
     }}>
-      <Navigation />
+      <Navigation activeScreen={activeScreen} setActiveScreen={setActiveScreen} />
       <main style={{ flex: 1 }}>
-        <Hero />
-        <About />
-        <Skills />
-        <Projects />
-        <Certification />
-        <Contact />
+        {(activeScreen === 'Home' || activeScreen === 'About' || activeScreen === 'Contact') && (
+          <>
+            <Hero />
+            <About onNavigate={setActiveScreen} />
+            <Contact />
+          </>
+        )}
+        {activeScreen === 'Skills' && <Skills />}
+        {activeScreen === 'Projects' && <Projects />}
+        {activeScreen === 'Certification' && <Certification />}
       </main>
       <Footer />
     </div>
