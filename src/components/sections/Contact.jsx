@@ -70,13 +70,6 @@ const Contact = () => {
   return (
     <section id="contact" ref={sectionRef} className="contact-section">
       <div className="contact-background">
-        <div className="orb orb-1"></div>
-        <div className="orb orb-2"></div>
-        <div className="particles-container">
-          {[...Array(15)].map((_, i) => (
-            <div key={i} className={`floating-particle p-${i}`}></div>
-          ))}
-        </div>
       </div>
 
       <div className="container">
@@ -93,7 +86,6 @@ const Contact = () => {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
           >
-            <div className="card-glow"></div>
             <div className="card-border"></div>
 
             <form onSubmit={handleSubmit} className="contact-form">
@@ -383,13 +375,8 @@ const Contact = () => {
           left: -100%;
           width: 50%;
           height: 100%;
-          background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255, 255, 255, 0.4),
-            transparent
-          );
-          animation: shimmer 3s infinite;
+          background: transparent;
+          animation: none;
         }
 
         /* Animations */
