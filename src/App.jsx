@@ -6,6 +6,7 @@ import About from './components/sections/About';
 import Skills from './components/sections/Skills';
 import Projects from './components/sections/Projects';
 import Certification from './components/sections/Certification';
+import Resume from './components/sections/Resume';
 import Contact from './components/sections/Contact';
 import Footer from './components/layout/Footer';
 import './styles/globals.css';
@@ -40,6 +41,7 @@ function App() {
             {activeScreen === 'Skills' && <Skills />}
             {activeScreen === 'Projects' && <Projects />}
             {activeScreen === 'Certification' && <Certification />}
+            {activeScreen === 'Resume' && <Resume onNavigate={setActiveScreen} />}
           </main>
           <Footer />
         </div>

@@ -5,7 +5,7 @@ const Navigation = ({ activeScreen, setActiveScreen }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
-  const navItems = ['Home', 'About', 'Skills', 'Projects', 'Certification', 'Contact'];
+  const navItems = ['Home', 'About', 'Resume', 'Skills', 'Projects', 'Certification', 'Contact'];
 
   useEffect(() => {
     const handleScroll = () => {
