@@ -157,6 +157,29 @@ const Contact = () => {
         <div className={`section-header ${isVisible ? 'animate-in' : ''}`}>
           <h2 className="title">Get In <span className="highlight">Touch</span></h2>
           <div className="title-underline"></div>
+          
+          <div className="social-links-container">
+            <a href="https://instagram.com/your_username" target="_blank" rel="noopener noreferrer" className="social-icon-3d instagram">
+              <div className="icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+              </div>
+              <span className="tooltip">Instagram</span>
+            </a>
+            
+            <a href="https://github.com/your_username" target="_blank" rel="noopener noreferrer" className="social-icon-3d github">
+              <div className="icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              </div>
+              <span className="tooltip">GitHub</span>
+            </a>
+            
+            <a href="https://wa.me/your_number" target="_blank" rel="noopener noreferrer" className="social-icon-3d whatsapp">
+              <div className="icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-7.6 8.38 8.38 0 0 1 3.8.9L21 4.5z"></path></svg>
+              </div>
+              <span className="tooltip">WhatsApp</span>
+            </a>
+          </div>
         </div>
 
         <div className={`contact-wrapper ${isVisible ? 'animate-in' : ''}`}>
@@ -186,14 +209,14 @@ const Contact = () => {
                 </div>
 
                 <div className="form-group stagger-2">
-                  <label>Your Email</label>
+                  <label>Full Address</label>
                   <div className="input-wrapper">
                     <input
                       type="email"
                       name="email"
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="email@example.com"
+                      // placeholder="email@example.com"
                       required
                     />
                     <div className="input-focus-bg"></div>
@@ -319,6 +342,97 @@ const Contact = () => {
           animation: fadeInUp 0.8s forwards;
         }
 
+        .social-links-container {
+          display: flex;
+          justify-content: center;
+          gap: 25px;
+          margin-top: 30px;
+          perspective: 1000px;
+        }
+
+        .social-icon-3d {
+          position: relative;
+          width: 50px;
+          height: 50px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          text-decoration: none;
+          color: #ffffff;
+          transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+          transform-style: preserve-3d;
+        }
+
+        .icon-wrapper {
+          width: 100%;
+          height: 100%;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          transition: all 0.4s ease;
+          position: relative;
+          z-index: 2;
+        }
+
+        .social-icon-3d svg {
+          width: 24px;
+          height: 24px;
+          transition: all 0.4s ease;
+        }
+
+        .social-icon-3d:hover {
+          transform: translateY(-10px) rotateX(20deg) rotateY(20deg);
+        }
+
+        .social-icon-3d:hover .icon-wrapper {
+          background: #ffffff;
+          color: #000000;
+          box-shadow: 0 15px 35px rgba(255, 255, 255, 0.2);
+        }
+
+        .social-icon-3d.instagram:hover .icon-wrapper {
+          background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+          color: #ffffff;
+          border-color: transparent;
+        }
+
+        .social-icon-3d.github:hover .icon-wrapper {
+          background: #333;
+          color: #ffffff;
+          border-color: transparent;
+        }
+
+        .social-icon-3d.whatsapp:hover .icon-wrapper {
+          background: #25D366;
+          color: #ffffff;
+          border-color: transparent;
+        }
+
+        .tooltip {
+          position: absolute;
+          bottom: -35px;
+          background: #ffffff;
+          color: #000000;
+          padding: 4px 10px;
+          border-radius: 6px;
+          font-size: 0.75rem;
+          font-weight: 700;
+          opacity: 0;
+          visibility: hidden;
+          transition: all 0.3s ease;
+          transform: translateY(10px);
+          white-space: nowrap;
+        }
+
+        .social-icon-3d:hover .tooltip {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
         .subtitle {
           font-size: 0.85rem;
           color: #4ade80;
@@ -367,14 +481,14 @@ const Contact = () => {
         .contact-card {
           width: 100%;
           max-width: 650px;
-          background: #0a0a0a;
-          backdrop-filter: blur(20px);
+          background: #000000;
+          backdrop-filter: none;
           border-radius: 30px;
           padding: 50px;
           position: relative;
           transition: transform 0.1s ease-out;
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.8);
         }
 
         .card-glow {
@@ -432,7 +546,7 @@ const Contact = () => {
         .contact-form input,
         .contact-form textarea {
           width: 100%;
-          background: #111111;
+          background: #000000;
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 16px;
           padding: 16px 20px;
