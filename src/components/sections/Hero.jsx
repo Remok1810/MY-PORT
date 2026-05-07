@@ -7,7 +7,7 @@ import profileImg from '../../assets/images/profile.jpg';
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  // const [imageLoaded, setImageLoaded] = useState(false);
+  const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
     setIsVisible(true);
@@ -98,7 +98,6 @@ const Hero = () => {
           alignItems: 'center'
         }} className="hero-grid">
 
-          {/* Left Side - Photo with 3D Tilt Effect - INCREASED HEIGHT */}
           <div
             className={`photo-container animate-slide-right ${isVisible ? 'animated' : ''}`}
             style={{
@@ -107,84 +106,128 @@ const Hero = () => {
               justifyContent: 'center',
               alignItems: 'center',
               transformStyle: 'preserve-3d',
-              perspective: '1000px'
+              perspective: '2000px',
+              cursor: 'pointer'
             }}
+            onClick={() => setIsFlipped(!isFlipped)}
           >
             <div style={{
               position: 'relative',
               width: '100%',
               maxWidth: '450px',
+              height: 'auto',
+              aspectRatio: '3/4',
               margin: '0 auto',
-              transform: `rotateX(${(mousePosition.y - 50) * 0.05}deg) rotateY(${(mousePosition.x - 50) * 0.05}deg)`,
-              transition: 'transform 0.3s ease-out'
+              transform: `rotateX(${(mousePosition.y - 50) * 0.05}deg) rotateY(${(mousePosition.x - 50) * 0.05 + (isFlipped ? 180 : 0)}deg)`,
+              transition: 'transform 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
+              transformStyle: 'preserve-3d'
             }}>
-              {/* Glowing Border Animation */}
+              
+              {/* Front Side - Photo */}
               <div style={{
                 position: 'absolute',
-                top: '-3px',
-                left: '-3px',
-                right: '-3px',
-                bottom: '-3px',
-                background: 'linear-gradient(45deg, #ffffff, #666666, #ffffff, #666666)',
-                borderRadius: '23px',
-                opacity: 0.6,
-                animation: 'borderGlow 3s linear infinite',
-                backgroundSize: '300% 300%',
-                zIndex: -1
-              }} />
-
-              {/* Photo Frame with Glow Effect - INCREASED HEIGHT */}
-              <div style={{
-                position: 'relative',
-                borderRadius: '20px',
-                overflow: 'hidden',
-                boxShadow: '0 30px 60px rgba(0,0,0,0.8)',
-                border: '2px solid rgba(255,255,255,0.1)',
-                transition: 'all 0.5s ease',
-                cursor: 'pointer',
-                backgroundColor: '#1a1a1a'
-              }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'scale(1.02)';
-                  e.currentTarget.style.boxShadow = '0 40px 80px rgba(0,0,0,0.9)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'scale(1)';
-                  e.currentTarget.style.boxShadow = '0 30px 60px rgba(0,0,0,0.8)';
-                }}>
-                {/* INCREASED IMAGE HEIGHT - Changed from paddingBottom 100% to 120% */}
+                inset: 0,
+                backfaceVisibility: 'hidden',
+                zIndex: isFlipped ? 0 : 2,
+                transformStyle: 'preserve-3d'
+              }}>
+                {/* Glowing Border Animation */}
                 <div style={{
-                  width: '100%',
-                  aspectRatio: '3/4', // Ensures portrait ratio
-                  backgroundColor: '#1a1a1a',
-                  position: 'relative',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center'
-                }}>
+                  position: 'absolute',
+                  top: '-3px',
+                  left: '-3px',
+                  right: '-3px',
+                  bottom: '-3px',
+                  background: 'linear-gradient(45deg, #ffffff, #666666, #ffffff, #666666)',
+                  borderRadius: '23px',
+                  opacity: 0.6,
+                  animation: 'borderGlow 3s linear infinite',
+                  backgroundSize: '300% 300%',
+                  zIndex: -1
+                }} />
 
+                <div style={{
+                  position: 'relative',
+                  width: '100%',
+                  height: '100%',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  boxShadow: '0 30px 60px rgba(0,0,0,0.8)',
+                  border: '2px solid rgba(255,255,255,0.1)',
+                  backgroundColor: '#1a1a1a'
+                }}>
                   <img
                     src={profileImg}
                     alt="Kaleeshwaran A"
-                    loading="eager"
                     style={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
                       width: '100%',
                       height: '100%',
                       objectFit: 'cover',
-                      objectPosition: 'center top',
-                      display: 'block'
-                    }}
-                    onError={(e) => {
-                      e.target.src = 'https://via.placeholder.com/450x540/1a1a1a/ffffff?text=KALEESHWARAN+A';
+                      objectPosition: 'center top'
                     }}
                   />
                 </div>
               </div>
 
-              {/* Decorative Elements with Animation */}
+              {/* Back Side - Details */}
+              <div style={{
+                position: 'absolute',
+                inset: 0,
+                backfaceVisibility: 'hidden',
+                transform: 'rotateY(180deg)',
+                zIndex: isFlipped ? 2 : 0,
+                background: 'linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%)',
+                borderRadius: '20px',
+                border: '2px solid rgba(255,255,255,0.1)',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                padding: '2.5rem',
+                boxShadow: '0 30px 60px rgba(0,0,0,0.8)',
+                overflow: 'hidden'
+              }}>
+                {/* Holographic Pattern Background */}
+                <div style={{
+                  position: 'absolute',
+                  inset: 0,
+                  opacity: 0.05,
+                  backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)',
+                  backgroundSize: '20px 20px'
+                }} />
+
+                
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  <div className="detail-item">
+                    <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Email</span>
+                    <p style={{ color: '#fff', fontSize: '1rem', fontWeight: '500', margin: '0.2rem 0' }}>kaleeshk441@gmail.com</p>
+                  </div>
+
+                  <div className="detail-item">
+                    <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Phone</span>
+                    <p style={{ color: '#fff', fontSize: '1.1rem', fontWeight: '500', margin: '0.2rem 0' }}>+91 8072577491</p>
+                  </div>
+
+                  <div className="detail-item">
+                    <span style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '2px' }}>Date of Birth</span>
+                    <p style={{ color: '#fff', fontSize: '1rem', fontWeight: '500', margin: '0.2rem 0' }}>18 Oct 2003</p>
+                  </div>
+                </div>
+
+                {/* Bottom Bar Decorations */}
+                <div style={{
+                  marginTop: 'auto',
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'flex-end'
+                }}>
+                  <div style={{ fontSize: '0.6rem', color: 'rgba(255,255,255,0.2)', fontFamily: 'monospace' }}>
+                    SECURE_ID_01810
+                  </div>
+                  <div style={{ width: '40px', height: '40px', background: 'rgba(255,255,255,0.05)', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.1)' }} />
+                </div>
+              </div>
+
+              {/* Shared Decorative Frame Elements */}
               <div style={{
                 position: 'absolute',
                 top: '-15px',
