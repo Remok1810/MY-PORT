@@ -673,11 +673,15 @@ const Certification = () => {
             className="cert-modal-content"
             style={{
               position: 'relative',
-              maxWidth: '85vw',
-              maxHeight: '85vh',
+              width: 'fit-content',
+              maxWidth: '90vw',
+              maxHeight: '90vh',
               backgroundColor: 'rgba(15, 20, 30, 0.95)',
-              borderRadius: '28px',
-              padding: '1.5rem',
+              borderRadius: '24px',
+              padding: '1rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
               boxShadow: '0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.1)',
               animation: 'zoomInModal 0.4s cubic-bezier(0.2, 0.9, 0.4, 1.1)'
             }}
@@ -741,22 +745,28 @@ const Certification = () => {
               </p>
             </div>
 
-            {/* Image */}
-            <img
-              src={modalImage}
-              alt="Certificate Full View"
-              style={{
-                maxWidth: '75vw',
-                maxHeight: '65vh',
-                width: 'auto',
-                height: 'auto',
-                objectFit: 'contain',
-                borderRadius: '16px',
-                display: 'block',
-                margin: '0 auto',
-                boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
-              }}
-            />
+            {/* Image Container */}
+            <div style={{
+              width: '100%',
+              display: 'flex',
+              justifyContent: 'center',
+              overflow: 'hidden',
+              borderRadius: '12px'
+            }}>
+              <img
+                src={modalImage}
+                alt="Certificate Full View"
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '70vh',
+                  width: 'auto',
+                  height: 'auto',
+                  objectFit: 'contain',
+                  borderRadius: '12px',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.3)'
+                }}
+              />
+            </div>
 
             {/* Footer note */}
             <div style={{
