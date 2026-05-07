@@ -406,7 +406,7 @@ const Navigation = ({ activeScreen, setActiveScreen }) => {
         )}
       </div>
 
-      <style jsx>{`
+      <style>{`
         @keyframes shimmerNav {
           0% { background-position: 0% 50%; }
           100% { background-position: 100% 50%; }

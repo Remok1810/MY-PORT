@@ -3,10 +3,11 @@ import React, { useState, useEffect, useRef } from 'react';
 const Contact = () => {
   const [formData, setFormData] = useState({
     fullname: '',
-    address: '',
+    email: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
   const cardRef = useRef(null);
@@ -27,15 +28,52 @@ const Contact = () => {
     };
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
-      alert('Message sent successfully!');
-      setFormData({ fullname: '', address: '', message: '' });
+    setSubmitStatus(null);
+
+    // Using Web3Forms for a simpler integration
+    const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '0845b010-cc91-4f72-8382-ba47ac68604e';
+    
+    const formDataObj = {
+      ...formData,
+      access_key: accessKey,
+      subject: `New Portfolio Message from ${formData.fullname}`,
+      from_name: formData.fullname,
+      to_email: 'kaleeshk441@gmail.com',
+    };
+
+    try {
+      if (!accessKey || accessKey === 'YOUR_ACCESS_KEY_HERE') {
+        throw new Error('Access Key setup required in .env file');
+      }
+
+      const response = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify(formDataObj)
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        console.log('Email sent successfully');
+        setSubmitStatus('success');
+        setFormData({ fullname: '', email: '', message: '' });
+      } else {
+        throw new Error(result.message || 'Form submission failed');
+      }
+    } catch (error) {
+      console.error('Email failed to send:', error);
+      setSubmitStatus('error');
+    } finally {
       setIsSubmitting(false);
-    }, 2000);
+      setTimeout(() => setSubmitStatus(null), 5000);
+    }
   };
 
   const handleChange = (e) => {
@@ -110,13 +148,14 @@ const Contact = () => {
                 </div>
 
                 <div className="form-group stagger-2">
-                  <label>Your Address</label>
+                  <label>Your Email</label>
                   <div className="input-wrapper">
                     <input
-                      type="text"
-                      name="address"
-                      value={formData.address}
+                      type="email"
+                      name="email"
+                      value={formData.email}
                       onChange={handleChange}
+                      placeholder="email@example.com"
                       required
                     />
                     <div className="input-focus-bg"></div>
@@ -146,13 +185,24 @@ const Contact = () => {
                   <div className="button-glow"></div>
                   <div className="button-shimmer"></div>
                 </button>
+
+                {submitStatus === 'success' && (
+                  <div className="status-message success">
+                    <span>✓</span> Message sent successfully!
+                  </div>
+                )}
+                {submitStatus === 'error' && (
+                  <div className="status-message error">
+                    <span>✕</span> {submitStatus === 'error' && !import.meta.env.VITE_WEB3FORMS_ACCESS_KEY ? 'Setup Required: Add Access Key to .env' : 'Failed to send. Please try again.'}
+                  </div>
+                )}
               </div>
             </form>
           </div>
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .contact-section {
           min-height: 100vh;
           padding: 100px 0;
@@ -427,6 +477,35 @@ const Contact = () => {
         @keyframes shimmer {
           0% { left: -100%; }
           100% { left: 200%; }
+        }
+
+        .status-message {
+          margin-top: 20px;
+          padding: 12px 20px;
+          border-radius: 12px;
+          font-size: 0.9rem;
+          font-weight: 600;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          animation: slideUp 0.3s ease-out;
+        }
+
+        .status-message.success {
+          background: rgba(74, 222, 128, 0.1);
+          color: #4ade80;
+          border: 1px solid rgba(74, 222, 128, 0.2);
+        }
+
+        .status-message.error {
+          background: rgba(248, 113, 113, 0.1);
+          color: #f87171;
+          border: 1px solid rgba(248, 113, 113, 0.2);
+        }
+
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(10px); }
+          to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 768px) {
