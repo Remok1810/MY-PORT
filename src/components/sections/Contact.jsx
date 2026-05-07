@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
+    fullname: '',
+    address: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -33,7 +33,7 @@ const Contact = () => {
     setTimeout(() => {
       console.log('Form submitted:', formData);
       alert('Message sent successfully!');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ fullname: '', address: '', message: '' });
       setIsSubmitting(false);
     }, 2000);
   };
@@ -70,11 +70,15 @@ const Contact = () => {
   return (
     <section id="contact" ref={sectionRef} className="contact-section">
       <div className="contact-background">
+        <div className="orb orb-1"></div>
+        <div className="orb orb-2"></div>
+        {[...Array(15)].map((_, i) => (
+          <div key={i} className={`floating-particle p-${i}`}></div>
+        ))}
       </div>
 
       <div className="container">
         <div className={`section-header ${isVisible ? 'animate-in' : ''}`}>
-
           <h2 className="title">Get In <span className="highlight">Touch</span></h2>
           <div className="title-underline"></div>
         </div>
@@ -86,6 +90,7 @@ const Contact = () => {
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
           >
+            <div className="card-glow"></div>
             <div className="card-border"></div>
 
             <form onSubmit={handleSubmit} className="contact-form">
@@ -95,10 +100,9 @@ const Contact = () => {
                   <div className="input-wrapper">
                     <input
                       type="text"
-                      name="name"
-                      value={formData.name}
+                      name="fullname"
+                      value={formData.fullname}
                       onChange={handleChange}
-                      // placeholder="Enter your name"
                       required
                     />
                     <div className="input-focus-bg"></div>
@@ -106,14 +110,13 @@ const Contact = () => {
                 </div>
 
                 <div className="form-group stagger-2">
-                  <label>Email Address</label>
+                  <label>Your Address</label>
                   <div className="input-wrapper">
                     <input
-                      type="email"
-                      name="email"
-                      value={formData.email}
+                      type="text"
+                      name="address"
+                      value={formData.address}
                       onChange={handleChange}
-                      // placeholder="Enter your email"
                       required
                     />
                     <div className="input-focus-bg"></div>
@@ -128,7 +131,6 @@ const Contact = () => {
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
-                    // placeholder="How can I help you?"
                     required
                     rows="5"
                   ></textarea>
@@ -155,7 +157,7 @@ const Contact = () => {
           min-height: 100vh;
           padding: 100px 0;
           position: relative;
-          background: #000;
+          background: #000000;
           overflow: hidden;
           display: flex;
           align-items: center;
@@ -165,6 +167,7 @@ const Contact = () => {
           position: absolute;
           inset: 0;
           z-index: 0;
+          background: #000000;
         }
 
         .orb {
@@ -179,7 +182,7 @@ const Contact = () => {
           left: 5%;
           width: 400px;
           height: 400px;
-          background: #fff;
+          background: #ffffff;
           animation: floatOrb 15s infinite alternate;
         }
 
@@ -240,13 +243,13 @@ const Contact = () => {
 
         .title {
           font-size: clamp(2.5rem, 6vw, 4rem);
-          color: #fff;
+          color: #ffffff;
           font-weight: 800;
           margin: 0;
         }
 
         .highlight {
-          background: linear-gradient(135deg, #fff, #4ade80);
+          background: linear-gradient(135deg, #ffffff, #4ade80);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
@@ -275,7 +278,7 @@ const Contact = () => {
         .contact-card {
           width: 100%;
           max-width: 650px;
-          background: rgba(255, 255, 255, 0.03);
+          background: #0a0a0a;
           backdrop-filter: blur(20px);
           border-radius: 30px;
           padding: 50px;
@@ -291,6 +294,20 @@ const Contact = () => {
           border-radius: 30px;
           pointer-events: none;
           z-index: 0;
+        }
+
+        .card-border {
+          position: absolute;
+          inset: 0;
+          border-radius: 30px;
+          padding: 1px;
+          background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(74, 222, 128, 0.3), transparent 80%);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          -webkit-mask-composite: xor;
+          mask-composite: exclude;
+          pointer-events: none;
+          z-index: 2;
         }
 
         .contact-form {
@@ -326,11 +343,11 @@ const Contact = () => {
         .contact-form input,
         .contact-form textarea {
           width: 100%;
-          background: rgba(255, 255, 255, 0.05);
+          background: #111111;
           border: 1px solid rgba(255, 255, 255, 0.1);
           border-radius: 16px;
           padding: 16px 20px;
-          color: #fff;
+          color: #ffffff;
           font-size: 1rem;
           transition: all 0.3s ease;
           outline: none;
@@ -339,16 +356,29 @@ const Contact = () => {
         .contact-form input:focus,
         .contact-form textarea:focus {
           border-color: rgba(74, 222, 128, 0.5);
-          background: rgba(255, 255, 255, 0.08);
+          background: #1a1a1a;
           box-shadow: 0 0 20px rgba(74, 222, 128, 0.1);
+        }
+
+        .input-focus-bg {
+          position: absolute;
+          inset: 0;
+          border-radius: 16px;
+          pointer-events: none;
+          transition: all 0.3s ease;
+        }
+
+        input:focus ~ .input-focus-bg,
+        textarea:focus ~ .input-focus-bg {
+          box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.2);
         }
 
         .submit-button {
           width: 100%;
           padding: 18px;
           border-radius: 50px;
-          background: #fff;
-          color: #000;
+          background: #ffffff;
+          color: #000000;
           font-weight: 700;
           font-size: 1.1rem;
           border: none;
