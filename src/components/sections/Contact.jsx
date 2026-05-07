@@ -179,6 +179,13 @@ const Contact = () => {
               </div>
               <span className="tooltip">WhatsApp</span>
             </a>
+
+            <a href="https://linkedin.com/in/your_username" target="_blank" rel="noopener noreferrer" className="social-icon-3d linkedin">
+              <div className="icon-wrapper">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </div>
+              <span className="tooltip">LinkedIn</span>
+            </a>
           </div>
         </div>
 
@@ -407,6 +414,12 @@ const Contact = () => {
 
         .social-icon-3d.whatsapp:hover .icon-wrapper {
           background: #25D366;
+          color: #ffffff;
+          border-color: transparent;
+        }
+
+        .social-icon-3d.linkedin:hover .icon-wrapper {
+          background: #0077B5;
           color: #ffffff;
           border-color: transparent;
         }
