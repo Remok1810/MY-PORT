@@ -106,7 +106,7 @@ const Certification = () => {
       issuer: "IBM SkillsBuild",
       date: "Sep 16, 2024",
       credentialId: "oyoPhwy0",
-      image: databaseCert ,
+      image: databaseCert,
       description: "Journey to Cloud: Envisioning Your Solution certification from IBM SkillsBuild.",
       skills: ["Cloud Computing", "Azure", "AWS", "Cloud Architecture"],
       color: "#00A4EF",
@@ -120,7 +120,7 @@ const Certification = () => {
       issuer: "LENTERA TECHNOLOGIES",
       date: "Sep 23, 2025",
       credentialId: "LENTERA-REACT-2025-001",
-      image:  cloudCert,
+      image: cloudCert,
       description: "React Developer internship program completion with exceptional dedication and team collaboration skills.",
       skills: ["React.js", "JavaScript", "Team Collaboration", "Git"],
       color: "#F05032",
@@ -154,13 +154,13 @@ const Certification = () => {
     { id: 'research', label: 'Research', icon: '📚' }
   ];
 
-  const filteredCerts = activeFilter === 'all' 
-    ? certifications 
+  const filteredCerts = activeFilter === 'all'
+    ? certifications
     : certifications.filter(cert => cert.category === activeFilter);
 
   return (
-    <section 
-      id="certification" 
+    <section
+      id="certification"
       style={{
         padding: '120px 0',
         position: 'relative',
@@ -200,7 +200,7 @@ const Certification = () => {
         animation: 'floatOrbCert 20s ease-in-out infinite',
         filter: 'blur(80px)'
       }} />
-      
+
       <div style={{
         position: 'absolute',
         bottom: '10%',
@@ -234,7 +234,7 @@ const Certification = () => {
         position: 'relative',
         zIndex: 2
       }}>
-        
+
         {/* Section Header with Glowing Effect */}
         <div className={`section-header ${isVisible ? 'animate-slide-up' : ''}`} style={{
           textAlign: 'center',
@@ -261,7 +261,7 @@ const Certification = () => {
               MY ACHIEVEMENTS
             </span>
           </div>
-          
+
           <h2 style={{
             fontSize: '3.5rem',
             fontWeight: 'bold',
@@ -275,7 +275,7 @@ const Certification = () => {
           }}>
             Certifications & Achievements
           </h2>
-          
+
           <div style={{
             width: '100px',
             height: '3px',
@@ -283,7 +283,7 @@ const Certification = () => {
             margin: '1rem auto 0',
             borderRadius: '3px'
           }} />
-          
+
           <p style={{
             color: 'var(--text-tertiary)',
             marginTop: '1.5rem',
@@ -347,7 +347,7 @@ const Certification = () => {
           gap: '2rem'
         }} className="cert-grid">
           {filteredCerts.map((cert, index) => (
-            <div 
+            <div
               key={cert.id}
               className={`cert-card ${isVisible ? 'animate-cert' : ''}`}
               style={{
@@ -357,7 +357,7 @@ const Certification = () => {
                 animation: isVisible ? `certAppear 0.7s cubic-bezier(0.2, 0.9, 0.4, 1.1) ${index * 0.1}s forwards` : 'none'
               }}
             >
-              <div 
+              <div
                 style={{
                   background: cert.gradient,
                   backdropFilter: 'blur(10px)',
@@ -391,15 +391,15 @@ const Certification = () => {
                   transition: 'left 0.6s ease',
                   pointerEvents: 'none'
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.left = '100%';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.left = '-100%';
-                }} />
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.left = '100%';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.left = '-100%';
+                  }} />
 
                 {/* Certification Image with Zoom Effect */}
-                <div 
+                <div
                   style={{
                     position: 'relative',
                     height: '220px',
@@ -408,8 +408,8 @@ const Certification = () => {
                   }}
                   onClick={() => openModal(cert.image, cert.title)}
                 >
-                  <img 
-                    src={cert.image} 
+                  <img
+                    src={cert.image}
                     alt={cert.title}
                     style={{
                       width: '100%',
@@ -419,7 +419,7 @@ const Certification = () => {
                       transform: hoveredCert === cert.id ? 'scale(1.15)' : 'scale(1)'
                     }}
                   />
-                  
+
                   {/* Gradient Overlay */}
                   <div style={{
                     position: 'absolute',
@@ -429,7 +429,7 @@ const Certification = () => {
                     height: '120px',
                     background: `linear-gradient(180deg, transparent, rgba(0,0,0,0.7), rgba(0,0,0,0.9))`
                   }} />
-                  
+
                   {/* Click to View Badge - Animated */}
                   <div style={{
                     position: 'absolute',
@@ -449,7 +449,7 @@ const Certification = () => {
                   }}>
                     <span style={{ animation: 'pulseIcon 1.5s infinite' }}>🔍</span> Click to enlarge
                   </div>
-                  
+
                   {/* Certificate Type Badge - Animated */}
                   <div style={{
                     position: 'absolute',
@@ -465,12 +465,12 @@ const Certification = () => {
                     boxShadow: '0 2px 10px rgba(0,0,0,0.2)',
                     animation: hoveredCert === cert.id ? 'badgePulse 1s infinite' : 'none'
                   }}>
-                    {cert.awardType === "Internship" ? "💼 INTERNSHIP" : 
-                     cert.awardType === "Participation" ? "📜 PARTICIPATION" : 
-                     cert.awardType === "Completion" ? "✅ COMPLETION" : "🎓 CERTIFICATION"}
+                    {cert.awardType === "Internship" ? "💼 INTERNSHIP" :
+                      cert.awardType === "Participation" ? "📜 PARTICIPATION" :
+                        cert.awardType === "Completion" ? "✅ COMPLETION" : "🎓 CERTIFICATION"}
                   </div>
                 </div>
-                
+
                 <div style={{ padding: '1.5rem' }}>
                   {/* Title with Gradient */}
                   <h3 style={{
@@ -485,7 +485,7 @@ const Certification = () => {
                   }}>
                     {cert.title}
                   </h3>
-                  
+
                   {/* Issuer and Date with Icons */}
                   <div style={{
                     display: 'flex',
@@ -514,7 +514,7 @@ const Certification = () => {
                       <span>📅</span> {cert.date}
                     </span>
                   </div>
-                  
+
                   {/* Award Type Chip */}
                   <div style={{
                     marginBottom: '0.75rem',
@@ -546,7 +546,7 @@ const Certification = () => {
                       </span>
                     )}
                   </div>
-                  
+
                   {/* Description */}
                   <p style={{
                     fontSize: '0.85rem',
@@ -556,7 +556,7 @@ const Certification = () => {
                   }}>
                     {cert.description}
                   </p>
-                  
+
                   {/* Skills Tags with Animation */}
                   <div style={{
                     display: 'flex',
@@ -565,8 +565,8 @@ const Certification = () => {
                     marginBottom: '1rem'
                   }}>
                     {cert.skills.map((skill, idx) => (
-                      <span 
-                        key={idx} 
+                      <span
+                        key={idx}
                         style={{
                           fontSize: '0.7rem',
                           padding: '0.25rem 0.8rem',
@@ -592,7 +592,7 @@ const Certification = () => {
                       </span>
                     ))}
                   </div>
-                  
+
                   {/* Credential ID and View Button */}
                   <div style={{
                     paddingTop: '0.75rem',
@@ -646,12 +646,12 @@ const Certification = () => {
           ))}
         </div>
 
-       
+
       </div>
 
       {/* Modal for Full Image View - Enhanced Design */}
       {modalImage && (
-        <div 
+        <div
           className="cert-modal-overlay"
           style={{
             position: 'fixed',
@@ -669,7 +669,7 @@ const Certification = () => {
           }}
           onClick={closeModal}
         >
-          <div 
+          <div
             className="cert-modal-content"
             style={{
               position: 'relative',
@@ -716,7 +716,7 @@ const Certification = () => {
             >
               ✕
             </button>
-            
+
             {/* Title */}
             <div style={{
               textAlign: 'center',
@@ -740,7 +740,7 @@ const Certification = () => {
                 Certificate of Achievement
               </p>
             </div>
-            
+
             {/* Image */}
             <img
               src={modalImage}
@@ -757,7 +757,7 @@ const Certification = () => {
                 boxShadow: '0 8px 24px rgba(0,0,0,0.3)'
               }}
             />
-            
+
             {/* Footer note */}
             <div style={{
               textAlign: 'center',

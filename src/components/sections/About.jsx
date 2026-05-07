@@ -105,10 +105,10 @@ const About = ({ onNavigate }) => {
           </div> */}
 
           <div className="resume-btn-container">
-            <a 
-              href={resumePdf} 
-              download="Kaleeshwaran_Resume.pdf" 
-              className="download-resume-btn" 
+            <a
+              href={resumePdf}
+              download="Kaleeshwaran_Resume.pdf"
+              className="download-resume-btn"
               style={{ display: 'inline-block', textDecoration: 'none' }}
             >
               Download Resume
