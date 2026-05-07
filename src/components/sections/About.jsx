@@ -541,6 +541,7 @@ const About = ({ onNavigate }) => {
 
         /* Responsive adjustments for mobile */
         @media (max-width: 767px) {
+          .about-section { padding-bottom: 40px; }
           .item-2 {
             right: -20px;
           }

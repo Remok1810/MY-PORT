@@ -35,7 +35,7 @@ const Contact = () => {
 
     // Using Web3Forms for a simpler integration
     const accessKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY || '0845b010-cc91-4f72-8382-ba47ac68604e';
-    
+
     const formDataObj = {
       ...formData,
       access_key: accessKey,
@@ -108,11 +108,49 @@ const Contact = () => {
   return (
     <section id="contact" ref={sectionRef} className="contact-section">
       <div className="contact-background">
-        <div className="orb orb-1"></div>
-        <div className="orb orb-2"></div>
-        {[...Array(15)].map((_, i) => (
-          <div key={i} className={`floating-particle p-${i}`}></div>
-        ))}
+        {/* Animated Background Particles */}
+        <div className="particles">
+          {[...Array(20)].map((_, i) => (
+            <div key={i} className={`particle particle-${i}`} style={{
+              position: 'absolute',
+              width: '2px',
+              height: '2px',
+              background: 'rgba(255,255,255,0.3)',
+              borderRadius: '50%',
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animation: `float ${5 + Math.random() * 10}s linear infinite`,
+              animationDelay: `${Math.random() * 5}s`
+            }} />
+          ))}
+        </div>
+
+        {/* Animated Gradient Orbs */}
+        <div style={{
+          position: 'absolute',
+          top: '20%',
+          left: '10%',
+          width: '300px',
+          height: '300px',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%)',
+          borderRadius: '50%',
+          animation: 'pulse 8s ease-in-out infinite',
+          filter: 'blur(40px)',
+          zIndex: 0
+        }} />
+
+        <div style={{
+          position: 'absolute',
+          bottom: '20%',
+          right: '10%',
+          width: '400px',
+          height: '400px',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%)',
+          borderRadius: '50%',
+          animation: 'pulse 6s ease-in-out infinite reverse',
+          filter: 'blur(50px)',
+          zIndex: 0
+        }} />
       </div>
 
       <div className="container">
@@ -204,10 +242,10 @@ const Contact = () => {
 
       <style>{`
         .contact-section {
-          min-height: 100vh;
-          padding: 100px 0;
+          min-height: auto;
+          padding: 80px 0;
           position: relative;
-          background: #000000;
+          background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.02) 0%, rgba(0,0,0,0) 100%);
           overflow: hidden;
           display: flex;
           align-items: center;
@@ -217,7 +255,6 @@ const Contact = () => {
           position: absolute;
           inset: 0;
           z-index: 0;
-          background: #000000;
         }
 
         .orb {
@@ -296,22 +333,24 @@ const Contact = () => {
           color: #ffffff;
           font-weight: 800;
           margin: 0;
-        }
-
-        .highlight {
-          background: linear-gradient(135deg, #ffffff, #4ade80);
+          background: linear-gradient(135deg, #ffffff 0%, #e0e0e0 25%, #ffffff 50%, #a0a0a0 75%, #ffffff 100%);
           -webkit-background-clip: text;
           background-clip: text;
           color: transparent;
+          background-size: 300% auto;
+          animation: shimmer 3s linear infinite;
+        }
+
+        .highlight {
+          color: inherit;
         }
 
         .title-underline {
           width: 80px;
-          height: 4px;
-          background: #4ade80;
+          height: 2px;
+          background: rgba(255, 255, 255, 0.2);
           margin: 20px auto 0;
           border-radius: 2px;
-          box-shadow: 0 0 15px rgba(74, 222, 128, 0.5);
         }
 
         .contact-wrapper {
@@ -460,23 +499,20 @@ const Contact = () => {
         }
 
         /* Animations */
-        @keyframes floatOrb {
-          0% { transform: translate(0, 0); }
-          100% { transform: translate(40px, 40px); }
-        }
-
-        @keyframes particleFloat {
-          from { transform: translateY(100vh) rotate(0deg); }
-          to { transform: translateY(-100px) rotate(360deg); }
-        }
-
-        @keyframes fadeInUp {
-          to { opacity: 1; transform: translateY(0); }
-        }
-
         @keyframes shimmer {
-          0% { left: -100%; }
-          100% { left: 200%; }
+          0% { background-position: 0% 50%; }
+          100% { background-position: 100% 50%; }
+        }
+
+        @keyframes float {
+          0%, 100% { transform: translateY(0) translateX(0); }
+          25% { transform: translateY(-20px) translateX(10px); }
+          75% { transform: translateY(20px) translateX(-10px); }
+        }
+        
+        @keyframes pulse {
+          0%, 100% { transform: scale(1); opacity: 0.3; }
+          50% { transform: scale(1.1); opacity: 0.5; }
         }
 
         .status-message {
@@ -509,6 +545,7 @@ const Contact = () => {
         }
 
         @media (max-width: 768px) {
+          .contact-section { padding: 40px 0; }
           .form-row { grid-template-columns: 1fr; }
           .contact-card { padding: 30px; }
           .title { font-size: 2.5rem; }
