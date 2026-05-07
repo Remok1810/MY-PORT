@@ -30,23 +30,15 @@ const Projects = () => {
       link: "https://github.com/Remok1810/INVOICE-APP-FRONT-END-/tree/main/react-cards-app",
       image: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=600&h=400&fit=crop"
     },
-    {
-      id: 4,
-      title: "Secure QR Generator",
-      description: "Mobile-first application featuring AES encryption for secure data transfer via high-fidelity QR codes.",
-      tech: ["React Native", "AES-256", "Expo"],
-      features: ["Encrypted Data", "Custom Styling", "Offline Scanning"],
-      link: "https://github.com/Remok1810", // Fallback to profile as per user request style
-      image: "https://images.unsplash.com/photo-1595079676339-1534801ad6cf?w=600&h=400&fit=crop"
-    }
+
   ];
-  
+
   return (
     <section id="projects" style={{ padding: '80px 0', background: '#0a0a0a' }}>
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
-        <h2 className="section-title" style={{ 
-          fontSize: '3rem', 
-          fontWeight: '800', 
+        <h2 className="section-title" style={{
+          fontSize: '3rem',
+          fontWeight: '800',
           marginBottom: '3rem',
           textAlign: 'center',
           background: 'linear-gradient(135deg, #fff 0%, #888 100%)',
@@ -62,7 +54,7 @@ const Projects = () => {
           gap: '2.5rem'
         }}>
           {projects.map((project, index) => (
-            <div key={project.id} style={{ 
+            <div key={project.id} style={{
               animation: 'fadeInUp 0.8s ease-out forwards',
               animationDelay: `${index * 0.15}s`,
               opacity: 0
@@ -76,8 +68,8 @@ const Projects = () => {
                     position: 'relative',
                     overflow: 'hidden'
                   }}>
-                    <img 
-                      src={project.image} 
+                    <img
+                      src={project.image}
                       alt={project.title}
                       style={{
                         width: '100%',
@@ -96,11 +88,11 @@ const Projects = () => {
                       height: '100%',
                       background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%)'
                     }} />
-                    
+
                     {/* View Link Icon */}
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
+                    <a
+                      href={project.link}
+                      target="_blank"
                       rel="noopener noreferrer"
                       style={{
                         position: 'absolute',
@@ -138,10 +130,10 @@ const Projects = () => {
                     <h3 style={{ fontSize: '1.4rem', fontWeight: '700', marginBottom: '0.8rem', color: '#fff' }}>
                       {project.title}
                     </h3>
-                    <p style={{ 
-                      color: 'rgba(255,255,255,0.6)', 
-                      fontSize: '0.9rem', 
-                      marginBottom: '1.5rem', 
+                    <p style={{
+                      color: 'rgba(255,255,255,0.6)',
+                      fontSize: '0.9rem',
+                      marginBottom: '1.5rem',
                       lineHeight: '1.6',
                       height: '3.2rem',
                       overflow: 'hidden'
@@ -166,9 +158,9 @@ const Projects = () => {
                       </div>
                     </div>
 
-                    <a 
-                      href={project.link} 
-                      target="_blank" 
+                    <a
+                      href={project.link}
+                      target="_blank"
                       rel="noopener noreferrer"
                       style={{
                         display: 'flex',
@@ -207,7 +199,7 @@ const Projects = () => {
           ))}
         </div>
       </div>
-      
+
       <style>{`
         @keyframes fadeInUp {
           from {
@@ -224,4 +216,4 @@ const Projects = () => {
   );
 };
 
-export default Projects;
+export default Projects;

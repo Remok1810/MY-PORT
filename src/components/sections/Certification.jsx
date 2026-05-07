@@ -95,9 +95,9 @@ const Certification = () => {
   return (
     <section id="certifications" style={{ padding: '80px 0', background: '#0a0a0a' }}>
       <div className="container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 20px' }}>
-        <h2 className="section-title" style={{ 
-          fontSize: '3rem', 
-          fontWeight: '800', 
+        <h2 className="section-title" style={{
+          fontSize: '3rem',
+          fontWeight: '800',
           marginBottom: '3rem',
           textAlign: 'center',
           background: 'linear-gradient(135deg, #fff 0%, #888 100%)',
@@ -114,7 +114,7 @@ const Certification = () => {
           gap: '2.5rem'
         }}>
           {certifications.map((cert, index) => (
-            <div key={cert.id} style={{ 
+            <div key={cert.id} style={{
               animation: 'fadeInUp 0.8s ease-out forwards',
               animationDelay: `${index * 0.15}s`,
               opacity: 0
@@ -135,8 +135,8 @@ const Certification = () => {
                   position: 'relative',
                   overflow: 'hidden'
                 }}>
-                  <img 
-                    src={cert.image} 
+                  <img
+                    src={cert.image}
                     alt={cert.title}
                     style={{
                       width: '100%',
@@ -153,8 +153,8 @@ const Certification = () => {
                     height: '100%',
                     background: 'linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.8) 100%)'
                   }} />
-                  
-                  <button 
+
+                  <button
                     onClick={() => openModal(cert.image, cert.title)}
                     style={{
                       position: 'absolute',
@@ -182,10 +182,10 @@ const Certification = () => {
 
                 <div style={{ padding: '1.5rem', flex: 1, display: 'flex', flexDirection: 'column' }}>
                   <div style={{ marginBottom: '0.5rem' }}>
-                    <span style={{ 
-                      fontSize: '0.75rem', 
-                      color: cert.color || '#4ade80', 
-                      fontWeight: '700', 
+                    <span style={{
+                      fontSize: '0.75rem',
+                      color: cert.color || '#4ade80',
+                      fontWeight: '700',
                       textTransform: 'uppercase',
                       letterSpacing: '1px'
                     }}>
@@ -195,10 +195,10 @@ const Certification = () => {
                   <h3 style={{ fontSize: '1.4rem', fontWeight: '700', marginBottom: '0.8rem', color: '#fff' }}>
                     {cert.title}
                   </h3>
-                  <p style={{ 
-                    color: 'rgba(255,255,255,0.6)', 
-                    fontSize: '0.9rem', 
-                    marginBottom: '1.5rem', 
+                  <p style={{
+                    color: 'rgba(255,255,255,0.6)',
+                    fontSize: '0.9rem',
+                    marginBottom: '1.5rem',
                     lineHeight: '1.6',
                     height: '3.2rem',
                     overflow: 'hidden'
@@ -223,7 +223,7 @@ const Certification = () => {
                     </div>
                   </div>
 
-                  <button 
+                  <button
                     onClick={() => openModal(cert.image, cert.title)}
                     style={{
                       display: 'flex',
@@ -279,7 +279,7 @@ const Certification = () => {
             flexDirection: 'column',
             alignItems: 'center'
           }} onClick={e => e.stopPropagation()}>
-            <button 
+            <button
               onClick={closeModal}
               style={{
                 position: 'absolute',
@@ -302,8 +302,8 @@ const Certification = () => {
                 <line x1="6" y1="6" x2="18" y2="18"></line>
               </svg>
             </button>
-            <img 
-              src={modalImage} 
+            <img
+              src={modalImage}
               alt={modalTitle}
               style={{
                 width: '100%',
@@ -316,7 +316,7 @@ const Certification = () => {
           </div>
         </div>
       )}
-      
+
       <style>{`
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(30px); }
