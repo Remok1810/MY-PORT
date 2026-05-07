@@ -162,7 +162,7 @@ const Resume = ({ onNavigate }) => {
       </div>
 
       {/* Bottom Navigation - Matches Image */}
-      <div style={{
+      {/* <div style={{
         position: 'fixed',
         bottom: '2rem',
         left: '50%',
@@ -193,7 +193,7 @@ const Resume = ({ onNavigate }) => {
             {item}
           </span>
         ))}
-      </div>
+      </div> */}
 
       <style jsx>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap');
