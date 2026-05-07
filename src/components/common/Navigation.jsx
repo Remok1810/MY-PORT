@@ -340,33 +340,7 @@ const Navigation = ({ activeScreen, setActiveScreen }) => {
                 ))}
               </div>
 
-              {/* Mobile Contact Button */}
-              <button
-                onClick={() => scrollToSection('Contact')}
-                style={{
-                  background: 'linear-gradient(135deg, #ffffff 0%, #e0e0e0 100%)',
-                  border: 'none',
-                  padding: '1rem',
-                  borderRadius: '12px',
-                  color: '#0a0a0a',
-                  cursor: 'pointer',
-                  fontSize: '1.1rem',
-                  fontWeight: '600',
-                  marginTop: '2rem',
-                  transition: 'all 0.3s ease',
-                  animation: 'slideInMobile 0.4s ease-out 0.3s both'
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow = '0 5px 20px rgba(255,255,255,0.2)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = 'translateY(0)';
-                  e.currentTarget.style.boxShadow = 'none';
-                }}
-              >
-                Hire Me
-              </button>
+             
 
               {/* Social links in mobile menu */}
               <div style={{
